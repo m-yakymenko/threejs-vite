@@ -1,8 +1,14 @@
 import 'reset-css'
 import './style.css'
-import { addControl, createCube, createLines, createScene } from './scene.ts'
+import { addOrbitControls, createCube, createLines, createScene, makeObjDraggable } from './scene.ts'
 
-createScene()
-addControl()
-createCube()()
-createLines()
+
+const init = () => {
+  createScene()
+  const orbitControl = addOrbitControls()
+  const cube = createCube()
+  makeObjDraggable([cube], orbitControl)
+  createLines()
+}
+
+init()

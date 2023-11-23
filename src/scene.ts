@@ -5,15 +5,19 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 
+import { DragControls } from 'three/addons/controls/DragControls.js';
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 
 const stats = new Stats();
 
 const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
+
+scene.add(new THREE.GridHelper(5, 10, 0x888888, 0x444444));
 
 export function createScene() {
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -25,12 +29,14 @@ const render = () => {
   composer.render();
 }
 
-export const addControl = () => {
+export const addOrbitControls = () => {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0);
   controls.update();
 
   controls.addEventListener('change', render);
+
+  return controls
 }
 
 const onResizeHandler = () => {
@@ -42,6 +48,8 @@ const onResizeHandler = () => {
 
   renderer.setSize(width, height);
   composer.setSize(width, height);
+
+  render()
 }
 window.addEventListener("resize", onResizeHandler);
 
@@ -53,7 +61,7 @@ export const createCube = () => {
 
   camera.position.z = 5;
 
-  return function animate() {
+  function animate() {
     requestAnimationFrame(animate);
     stats.begin();
 
@@ -64,6 +72,10 @@ export const createCube = () => {
 
     stats.end();
   }
+
+  animate()
+
+  return cube
 }
 
 export const createLines = () => {
@@ -79,3 +91,19 @@ export const createLines = () => {
   scene.add(line);
   render()
 }
+
+export const makeObjDraggable = (objects: THREE.Object3D<THREE.Object3DEventMap>[], orbitControl: OrbitControls) => {
+  const controls = new DragControls(objects, camera, renderer.domElement);
+  // add event listener to highlight dragged objects
+
+  controls.addEventListener('drag', render);
+  controls.addEventListener('dragstart', () => {
+    orbitControl.enabled = false
+  });
+  controls.addEventListener('dragend', () => {
+    orbitControl.enabled = true
+
+  });
+}
+
+
