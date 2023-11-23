@@ -1,14 +1,18 @@
 import 'reset-css'
 import './style.css'
-import { addOrbitControls, createCube, createLines, createScene, makeObjDraggable } from './scene.ts'
+import { addOrbitControls, createScene, } from './scene.ts'
+import { createCube, createLines } from './forms/forms.ts'
+import { makeObjDraggable } from './dragAndDrop.ts'
 
 
 const init = () => {
   createScene()
   const orbitControl = addOrbitControls()
+
   const cube = createCube()
-  makeObjDraggable([cube], orbitControl)
-  createLines()
+  const line = createLines()
+
+  makeObjDraggable([cube, line], orbitControl)
 }
 
 init()
