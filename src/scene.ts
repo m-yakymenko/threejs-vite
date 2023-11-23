@@ -1,25 +1,53 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
+
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
+const stats = new Stats();
+
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
 
 export function createScene() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+  renderer.domElement.appendChild(stats.dom);
+}
+
+const render = () => {
+  composer.render();
+}
+
+export const addControl = () => {
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 0, 0);
+  controls.update();
+
+  controls.addEventListener('change', render);
 }
 
 const onResizeHandler = () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  renderer.setSize(width, height);
+  composer.setSize(width, height);
 }
 window.addEventListener("resize", onResizeHandler);
 
 export const createCube = () => {
   const geometry = new THREE.BoxGeometry(1, 1, 1,);
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
@@ -27,11 +55,14 @@ export const createCube = () => {
 
   return function animate() {
     requestAnimationFrame(animate);
+    stats.begin();
 
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
 
-    renderer.render(scene, camera);
+    render()
+
+    stats.end();
   }
 }
 
@@ -46,6 +77,5 @@ export const createLines = () => {
   const geometry = new THREE.BufferGeometry().setFromPoints(points);
   const line = new THREE.Line(geometry, material);
   scene.add(line);
-  //camera.position.set(0, 0, 100);
-  renderer.render(scene, camera);
+  render()
 }
