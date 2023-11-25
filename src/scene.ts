@@ -6,6 +6,7 @@ export function createScene() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   renderer.domElement.appendChild(stats.dom);
+  camera.position.z = 5;
 
   window.addEventListener("resize", () => {
     const width = window.innerWidth;

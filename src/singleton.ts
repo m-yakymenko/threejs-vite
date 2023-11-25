@@ -15,8 +15,6 @@ export const composer = new EffectComposer(renderer);
 export const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-scene.add(new THREE.GridHelper(5, 10, 0x888888, 0x444444));
-
 console.log('init');
 
 export const render = () => {
