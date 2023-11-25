@@ -1,42 +1,22 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
-import { DragControls } from 'three/addons/controls/DragControls.js'
-import { debounce, throttle } from 'throttle-debounce';
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
-import { camera, render, renderer } from './singleton'
+import { camera, render, renderer, scene } from './singleton'
 
-export const makeObjDraggable = (objects: THREE.Object3D<THREE.Object3DEventMap>[], orbitControl: OrbitControls) => {
-  let controls = new DragControls(objects, camera, renderer.domElement)
-  let draggingObject: THREE.Object3D<THREE.Object3DEventMap> | null = null
+export const makeObjDraggable = (objects: THREE.Object3D<THREE.Object3DEventMap>[], orbit: OrbitControls) => {
+  let draggingObject: THREE.Object3D<THREE.Object3DEventMap> | null = objects[0]
 
-  const throttleFunc = throttle(
-    10,
-    (event: unknown) => {
-      if (draggingObject) {
-        //controls.deactivate()
-        const direction = new THREE.Vector3()
-        camera.getWorldDirection(direction)
-        direction.normalize()
-        direction.multiplyScalar((event as WheelEvent).deltaY / 100)
-        draggingObject.position.add(direction)
-        //controls.dispatchEvent({ type: 'drag', object: draggingObject! });
+  //orbit.update();
+  //orbit.addEventListener('change', render);
 
-      }
-    },
-    { noLeading: false, noTrailing: false }
-  );
+  const control = new TransformControls(camera, renderer.domElement);
+  control.addEventListener('change', render);
+  control.addEventListener('dragging-changed', function (event) {
+    orbit.enabled = !event.value;
+  });
 
-  document.addEventListener('mousewheel', throttleFunc);
+  control.attach(draggingObject);
+  scene.add(control);
 
-  controls.addEventListener('drag', (event) => {
-
-  })
-  controls.addEventListener('dragstart', (event) => {
-    draggingObject = event.object
-    orbitControl.enabled = false
-  })
-  controls.addEventListener('dragend', () => {
-    draggingObject = null
-    orbitControl.enabled = true
-  })
 }
