@@ -12,11 +12,11 @@ const init = () => {
   addGridHelper()
   const orbitControl = addOrbitControls()
 
-  const cube = createCube()
-  const line = createLines()
+  createCube()
+  createLines()
 
   hoverHandler()
-  //makeObjDraggable([cube, line], orbitControl)
+  makeObjDraggable(orbitControl)
 }
 
 init()
