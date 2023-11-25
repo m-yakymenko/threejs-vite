@@ -19,7 +19,7 @@ export const makeObjDraggable = (orbit: OrbitControls) => {
       control.detach()
       scene.remove(control)
     } else {
-      control.attach(HOVERED_INTERSECTED.object);
+      control.attach(HOVERED_INTERSECTED.object)
       scene.add(control);
     }
   }
