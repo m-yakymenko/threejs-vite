@@ -19,4 +19,6 @@ console.log('init')
 
 export const render = () => {
   composer.render()
+  window.requestAnimationFrame(render)
 }
+window.requestAnimationFrame(render)
