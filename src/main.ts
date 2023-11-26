@@ -1,12 +1,12 @@
 import 'reset-css'
 import './style.css'
-import { createScene, } from './scene.ts'
+import { createScene, } from './camera/scene.ts'
 import { createBasicDots, } from './forms/forms.ts'
-import { makeObjDraggable } from './dragAndDrop.ts'
-import { hoverHandler } from './hoverHandler.ts'
-import { addGridHelper } from './gridHelper.ts'
+import { makeObjDraggable } from './forms/dragAndDrop.ts'
+import { hoverHandler } from './forms/hoverHandler.ts'
+import { addGridHelper } from './forms/gridHelper.ts'
 import { createGui } from './gui.ts'
-import { createDotsConnector } from './dotsConnector.ts'
+import { createDotsConnector } from './forms/dotsConnector.ts'
 
 
 const init = () => {

@@ -1,9 +1,9 @@
 //import * as THREE from 'three'
 import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
-import { camera, controls, renderer, scene } from './singleton'
+import { camera, controls, renderer, scene } from '../singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
-import { transformControlsTransformingEvent } from './events';
+import { transformControlsTransformingEvent } from '../events';
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(camera, renderer.domElement)

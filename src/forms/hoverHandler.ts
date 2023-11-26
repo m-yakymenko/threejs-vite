@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, dotsGroup } from './singleton'
+import { camera, dotsGroup } from '../singleton'
 import { throttle } from 'throttle-debounce'
 
 export const HOVERED_INTERSECTED = {

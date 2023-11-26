@@ -1,9 +1,9 @@
 import * as THREE from 'three'
-import { MESH_ELEMENTS_TYPE } from "./constans"
-import { createLines } from "./forms/forms"
+import { MESH_ELEMENTS_TYPE } from "../constans"
+import { createLines } from "./forms"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { dotsGroup, linesGroup } from "./singleton"
-import { transformControlsTransformingEventName } from './events'
+import { dotsGroup, linesGroup } from "../singleton"
+import { transformControlsTransformingEventName } from '../events'
 import { throttle } from 'throttle-debounce'
 
 type SetType = Array<THREE.Mesh>

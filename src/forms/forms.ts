@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { camera, dotsGroup, linesGroup } from '../singleton'
-import { setupCameraForPoints } from '../cameraHelpers'
+import { setupCameraForPoints } from '../camera/cameraHelpers'
 
 
 const lineMaterial = new THREE.LineBasicMaterial({

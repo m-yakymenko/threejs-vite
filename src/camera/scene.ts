@@ -1,5 +1,5 @@
 
-import { camera, renderer, stats } from './singleton'
+import { camera, renderer, stats } from '../singleton'
 
 
 export function createScene() {

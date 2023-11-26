@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, controls } from './singleton';
+import { camera, controls } from '../singleton';
 
 export const setupCameraForPoints = (points: THREE.Vector3[]) => {
   const boundingBox = new THREE.Box3().setFromPoints(points);
