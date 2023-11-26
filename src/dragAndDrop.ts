@@ -1,14 +1,13 @@
 //import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
-import { camera, renderer, scene } from './singleton'
+import { camera, controls, renderer, scene } from './singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
 
-export const makeObjDraggable = (orbit: OrbitControls) => {
+export const makeObjDraggable = () => {
   const control = new TransformControls(camera, renderer.domElement)
   control.addEventListener('dragging-changed', function (event) {
-    orbit.enabled = !event.value
+    controls.enabled = !event.value
   })
 
   const dblclickHandler = () => {

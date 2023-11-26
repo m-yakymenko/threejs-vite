@@ -24,11 +24,10 @@ export const createCube = () => {
   return cube
 }
 
+const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
+const geometry = new THREE.BufferGeometry()
 export const createLines = (points: THREE.Vector3[]) => {
-  const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
-
-  const geometry = new THREE.BufferGeometry().setFromPoints(points)
-  const line = new THREE.LineSegments(geometry, material)
+  const line = new THREE.Line(geometry.clone().setFromPoints(points), material)
   scene.add(line)
 
   return line

@@ -1,4 +1,4 @@
-import { OrbitControls } from 'three/examples/jsm/Addons.js'
+
 import { camera, composer, renderer, stats } from './singleton'
 
 
@@ -20,15 +20,6 @@ export function createScene() {
 
   })
 }
-
-export const addOrbitControls = () => {
-  const controls = new OrbitControls(camera, renderer.domElement)
-  controls.target.set(0, 0, 0)
-  controls.update()
-
-  return controls
-}
-
 
 
 
