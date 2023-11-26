@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
+import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
+import { TypedGroup } from './extendedClasses'
 
 
 
@@ -15,14 +17,21 @@ renderer.shadowMap.enabled = true;
 export const stats = new Stats()
 
 export const controls = new OrbitControls(camera, renderer.domElement)
-controls.target.set(0, 0, 0)
+
+export const linesGroup = new TypedGroup<THREE.Line>();
+linesGroup.name = GROUP_LINES_NAME
+scene.add(linesGroup);
+
+
+export const dotsGroup = new TypedGroup<THREE.Mesh>();
+dotsGroup.name = GROUP_DOTS_NAME
+scene.add(dotsGroup);
 
 console.log('init')
 
 export const render = () => {
   controls.update()
   renderer.render(scene, camera)
-  //console.log(camera.rotation);
 
   window.requestAnimationFrame(render)
 }

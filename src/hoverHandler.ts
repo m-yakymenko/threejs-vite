@@ -1,11 +1,12 @@
 import * as THREE from 'three'
-import { camera, scene } from './singleton'
-import { MESH_ELEMENTS_TYPE } from './constans'
+import { camera, dotsGroup } from './singleton'
 import { throttle } from 'throttle-debounce'
 
 export const HOVERED_INTERSECTED = {
   object: null as THREE.Mesh | null,
-  currentHex: null as any | null,
+  objectColor: null as any | null,
+  selected: null as THREE.Mesh | null,
+  selectedColor: null as any | null,
 }
 
 export const hoverHandler = () => {
@@ -21,21 +22,30 @@ export const hoverHandler = () => {
 
   window.addEventListener('pointermove', onPointerMove)
 
+  const isSame = (object: THREE.Mesh) => !!object && !!HOVERED_INTERSECTED.selected && object.id === HOVERED_INTERSECTED.selected.id
+
   const render = () => {
     raycaster.setFromCamera(pointer, camera)
-    const intersected = raycaster.intersectObjects(scene.children.filter(({ type }) => MESH_ELEMENTS_TYPE.includes(type)), false)[0]
+    const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as THREE.Mesh | undefined
 
     if (intersected) {
-      if (HOVERED_INTERSECTED.object) (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setHex(HOVERED_INTERSECTED.currentHex)
+      if (!isSame(intersected)) {
+        if (HOVERED_INTERSECTED.object) {
+          (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
+        }
 
-      HOVERED_INTERSECTED.object = intersected.object as THREE.Mesh
-      HOVERED_INTERSECTED.currentHex = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getHex();
-      (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setHex(0xff0000)
+        HOVERED_INTERSECTED.object = intersected
+        HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
+        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle('red')
+      }
     } else {
       if (HOVERED_INTERSECTED.object) {
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setHex(HOVERED_INTERSECTED.currentHex)
+        if (!isSame(HOVERED_INTERSECTED.object)) {
+          (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
+        }
         HOVERED_INTERSECTED.object = null
-        HOVERED_INTERSECTED.currentHex = null
+        HOVERED_INTERSECTED.objectColor = null
+
       }
     }
   }
