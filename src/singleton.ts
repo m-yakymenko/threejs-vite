@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/Addons.js'
 
 
 export const scene = new THREE.Scene()
+
 export const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000)
 export const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -21,6 +22,8 @@ console.log('init')
 export const render = () => {
   controls.update()
   renderer.render(scene, camera)
+  //console.log(camera.rotation);
+
   window.requestAnimationFrame(render)
 }
 window.requestAnimationFrame(render)
