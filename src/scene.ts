@@ -17,7 +17,6 @@ export function createScene() {
 
     renderer.setSize(width, height)
     composer.setSize(width, height)
-
   })
 }
 

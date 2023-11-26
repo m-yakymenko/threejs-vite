@@ -24,23 +24,28 @@ export const createCube = () => {
   return cube
 }
 
-const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
-const geometry = new THREE.BufferGeometry()
+const lineMaterial = new THREE.LineBasicMaterial({
+  color: 'blue',
+  linewidth: 5, // in pixels
+  precision: 'lowp'
+  //resolution:  // to be set by renderer, eventually 
+})
 export const createLines = (points: THREE.Vector3[]) => {
-  const line = new THREE.Line(geometry.clone().setFromPoints(points), material)
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
+  const line = new THREE.Line(lineGeometry, lineMaterial)
+  lineGeometry.computeBoundingSphere()
   scene.add(line)
-
   return line
 }
 
 export const createDot = (position?: THREE.Vector3) => {
-  const geometry = new THREE.SphereGeometry(0.1);
-  const material = new THREE.MeshBasicMaterial({ color: 'green' });
-  const sphere = new THREE.Mesh(geometry, material);
+  const dotGeometry = new THREE.SphereGeometry(0.1);
+  const dotMaterial = new THREE.MeshBasicMaterial({ color: 'green' });
+  const sphere = new THREE.Mesh(dotGeometry, dotMaterial);
   sphere.position.copy(position || new THREE.Vector3().copy(camera.position).setZ(0));
   scene.add(sphere);
 
-  return scene;
+  return sphere;
 }
 
 export const createBasicDots = () => {
