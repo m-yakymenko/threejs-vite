@@ -1,5 +1,5 @@
 
-import { camera, composer, renderer, stats } from './singleton'
+import { camera, renderer, stats } from './singleton'
 
 
 export function createScene() {
@@ -16,7 +16,6 @@ export function createScene() {
     camera.updateProjectionMatrix()
 
     renderer.setSize(width, height)
-    composer.setSize(width, height)
   })
 }
 
