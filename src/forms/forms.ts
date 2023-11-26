@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, dotsGroup } from '../singleton'
+import { camera, dotsGroup, linesGroup } from '../singleton'
 import { setupCameraForPoints } from '../cameraHelpers'
 
 
@@ -11,6 +11,7 @@ const lineMaterial = new THREE.LineBasicMaterial({
 export const createLines = (points: THREE.Vector3[]) => {
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
   const line = new THREE.Line(lineGeometry, lineMaterial)
+  linesGroup.add(line)
   return line
 }
 
@@ -27,9 +28,6 @@ export const createDot = (position?: THREE.Vector3) => {
 export const createBasicDots = () => {
   const data = Array(20).fill([0, 0, 0]).map(() => [Math.random() * 10, Math.random() * 10, 0])
   data.forEach(coord => createDot(new THREE.Vector3(...coord)))
-  //for (let index = 0; index < 60; index++) {
-  //  createLines([new THREE.Vector3(...data[randomIntFromInterval(0, 19)]), new THREE.Vector3(...data[randomIntFromInterval(0, 19)])])
-  //}
 
   setupCameraForPoints(data.map(coord => new THREE.Vector3(...coord)))
 }

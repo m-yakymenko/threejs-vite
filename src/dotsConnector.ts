@@ -3,6 +3,8 @@ import { MESH_ELEMENTS_TYPE } from "./constans"
 import { createLines } from "./forms/forms"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
 import { dotsGroup, linesGroup } from "./singleton"
+import { transformControlsTransformingEventName } from './events'
+import { throttle } from 'throttle-debounce'
 
 type SetType = Array<THREE.Mesh>
 type MapType = { [key: number]: SetType }
@@ -14,7 +16,6 @@ export const createDotsConnector = () => {
   }
 
   const graph: MapType = {}
-  let lines: THREE.Line[] = []
 
   const destroy = () => {
     dots.start = null
@@ -35,25 +36,25 @@ export const createDotsConnector = () => {
   }
 
   const createLinesHandler = () => {
-
     linesGroup.clear()
-    lines = []
 
     for (const [dotId, dots] of Object.entries(graph)) {
       const dot = dotsGroup.children.find(child => child.id === +dotId)
       if (!dot) return
 
       dots.forEach(endDot => {
-        const line = createLines([
+        createLines([
           dot.position,
           endDot.position,
         ])
-        lines.push(line)
       })
     }
-
-    linesGroup.add(...lines)
   }
+
+  window.addEventListener(
+    transformControlsTransformingEventName,
+    throttle(100, createLinesHandler, { noLeading: false, noTrailing: false })
+  )
 
   window.addEventListener('click', () => {
     const selectedObject = HOVERED_INTERSECTED.object
@@ -61,7 +62,6 @@ export const createDotsConnector = () => {
     if (selectedObject) {
       if (!MESH_ELEMENTS_TYPE.includes(selectedObject.type)) return;
       if (dots.start && selectedObject !== dots.start) {
-        destroySelectedIntersected()
         dots.end = selectedObject
 
         graph[dots.start.id] || (graph[dots.start.id] = [])
@@ -71,6 +71,7 @@ export const createDotsConnector = () => {
         const endSet = graph[dots.end.id]!
 
         if (startSet.includes(dots.end) || endSet.includes(dots.start)) return;
+        destroySelectedIntersected()
         startSet.push(dots.end);
 
         createLinesHandler()
