@@ -1,5 +1,5 @@
 import 'reset-css'
-import './style.css'
+import './assets/style.css'
 import { createScene, } from './camera/scene.ts'
 import { createBasicDots, } from './forms/forms.ts'
 import { makeObjDraggable } from './forms/dragAndDrop.ts'

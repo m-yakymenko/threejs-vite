@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { camera, dotsGroup, linesGroup } from '../singleton'
 import { setupCameraForPoints } from '../camera/cameraHelpers'
+import { createLinesHandler, graphDataHelper } from './dotsConnector'
+import { randomIntFromInterval } from '../utils'
 
 
 const lineMaterial = new THREE.LineBasicMaterial({
@@ -29,5 +31,20 @@ export const createBasicDots = () => {
   const data = Array(20).fill([0, 0, 0]).map(() => [Math.random() * 10, Math.random() * 10, 0])
   data.forEach(coord => createDot(new THREE.Vector3(...coord)))
 
-  setupCameraForPoints(data.map(coord => new THREE.Vector3(...coord)))
+  const vectors = data.map(coord => new THREE.Vector3(...coord))
+  setupCameraForPoints(vectors)
+  createBasicLines()
+}
+
+export const createBasicLines = () => {
+  const dots = dotsGroup.children
+
+  for (let index = 0; index < dotsGroup.children.length * 3; index++) {
+    const [dotStart, dotEnd] = [dots[randomIntFromInterval(0, dots.length - 1)], dots[randomIntFromInterval(0, dots.length - 1)]]
+
+    const { startSetAdd } = graphDataHelper(dotStart, dotEnd)
+    startSetAdd(dotEnd)
+  }
+
+  createLinesHandler()
 }

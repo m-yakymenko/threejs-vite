@@ -8,6 +8,36 @@ import { throttle } from 'throttle-debounce'
 
 type SetType = Array<THREE.Mesh>
 type MapType = { [key: number]: SetType }
+const graph: MapType = {}
+
+export const createLinesHandler = () => {
+  linesGroup.clear()
+
+  for (const [dotId, dots] of Object.entries(graph)) {
+    const dot = dotsGroup.children.find(child => child.id === +dotId)
+    if (!dot) return
+
+    dots.forEach(endDot => {
+      createLines([
+        dot.position,
+        endDot.position,
+      ])
+    })
+  }
+}
+
+export const graphDataHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
+  graph[dotStart.id] || (graph[dotStart.id] = [])
+  graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
+
+  const startSet = graph[dotStart.id]!
+  const endSet = graph[dotSEnd.id]!
+
+  const isPathExist = startSet.includes(dotSEnd) || endSet.includes(dotStart)
+  const startSetAdd = (dot: THREE.Mesh) => !isPathExist && startSet.push(dot)
+
+  return { startSet, endSet, startSetAdd, isPathExist }
+}
 
 export const createDotsConnector = () => {
   const dots = {
@@ -15,7 +45,6 @@ export const createDotsConnector = () => {
     end: null as THREE.Mesh | null,
   }
 
-  const graph: MapType = {}
 
   const destroy = () => {
     dots.start = null
@@ -35,21 +64,7 @@ export const createDotsConnector = () => {
     (HOVERED_INTERSECTED.selected.material as THREE.MeshBasicMaterial).color.setStyle('yellow')
   }
 
-  const createLinesHandler = () => {
-    linesGroup.clear()
 
-    for (const [dotId, dots] of Object.entries(graph)) {
-      const dot = dotsGroup.children.find(child => child.id === +dotId)
-      if (!dot) return
-
-      dots.forEach(endDot => {
-        createLines([
-          dot.position,
-          endDot.position,
-        ])
-      })
-    }
-  }
 
   window.addEventListener(
     transformControlsTransformingEventName,
@@ -64,15 +79,11 @@ export const createDotsConnector = () => {
       if (dots.start && selectedObject !== dots.start) {
         dots.end = selectedObject
 
-        graph[dots.start.id] || (graph[dots.start.id] = [])
-        graph[dots.end.id] || (graph[dots.end.id] = [])
+        const { isPathExist, startSetAdd } = graphDataHelper(dots.start, dots.end)
 
-        const startSet = graph[dots.start.id]!
-        const endSet = graph[dots.end.id]!
-
-        if (startSet.includes(dots.end) || endSet.includes(dots.start)) return;
+        if (isPathExist) return;
         destroySelectedIntersected()
-        startSet.push(dots.end);
+        startSetAdd(dots.end);
 
         createLinesHandler()
 
