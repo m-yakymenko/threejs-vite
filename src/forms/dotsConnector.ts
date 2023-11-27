@@ -6,11 +6,14 @@ import { dotsGroup, linesGroup } from "../singleton"
 import { transformControlsTransformingEventName } from '../events'
 import { throttle } from 'throttle-debounce'
 
-type SetType = Array<THREE.Mesh>
-type MapType = { [key: number]: SetType }
+type EdgeArrayType = Array<{
+  dot: THREE.Mesh,
+  line: THREE.Line
+}>
+type MapType = { [key: number]: EdgeArrayType }
 const graph: MapType = {}
 
-export const createLinesHandler = () => {
+const createLinesHandler = () => {
   linesGroup.clear()
 
   for (const [dotId, dots] of Object.entries(graph)) {
@@ -18,9 +21,9 @@ export const createLinesHandler = () => {
     if (!dot) return
 
     dots.forEach(endDot => {
-      createLines([
+      endDot.line = createLines([
         dot.position,
-        endDot.position,
+        endDot.dot.position,
       ])
     })
   }
@@ -33,8 +36,12 @@ export const graphDataHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
   const startSet = graph[dotStart.id]!
   const endSet = graph[dotSEnd.id]!
 
-  const isPathExist = startSet.includes(dotSEnd) || endSet.includes(dotStart)
-  const startSetAdd = (dot: THREE.Mesh) => !isPathExist && startSet.push(dot)
+  const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
+  const startSetAdd = (dot: THREE.Mesh) => {
+    if (isPathExist) return;
+    const line = createLines([dotStart.position, dotSEnd.position]);
+    startSet.push({ dot, line })
+  }
 
   return { startSet, endSet, startSetAdd, isPathExist }
 }
@@ -84,8 +91,6 @@ export const createDotsConnector = () => {
         if (isPathExist) return;
         destroySelectedIntersected()
         startSetAdd(dots.end);
-
-        createLinesHandler()
 
         dots.start = dots.end
         dots.end = null

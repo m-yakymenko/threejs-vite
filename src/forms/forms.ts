@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { camera, dotsGroup, linesGroup } from '../singleton'
 import { setupCameraForPoints } from '../camera/cameraHelpers'
-import { createLinesHandler, graphDataHelper } from './dotsConnector'
+import { graphDataHelper } from './dotsConnector'
 import { randomIntFromInterval } from '../utils'
 
 
@@ -45,6 +45,4 @@ export const createBasicLines = () => {
     const { startSetAdd } = graphDataHelper(dotStart, dotEnd)
     startSetAdd(dotEnd)
   }
-
-  createLinesHandler()
 }
