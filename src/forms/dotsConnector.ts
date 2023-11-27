@@ -29,7 +29,7 @@ const createLinesHandler = () => {
   }
 }
 
-export const graphDataHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
+export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
   graph[dotStart.id] || (graph[dotStart.id] = [])
   graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
 
@@ -37,13 +37,13 @@ export const graphDataHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
   const endSet = graph[dotSEnd.id]!
 
   const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
-  const startSetAdd = (dot: THREE.Mesh) => {
-    if (isPathExist) return;
+
+  if (!isPathExist) {
     const line = createLines([dotStart.position, dotSEnd.position]);
-    startSet.push({ dot, line })
+    startSet.push({ dot: dotSEnd, line })
   }
 
-  return { startSet, endSet, startSetAdd, isPathExist }
+  return { startSet, endSet, isPathExist }
 }
 
 export const createDotsConnector = () => {
@@ -68,7 +68,7 @@ export const createDotsConnector = () => {
   const setSelectedIntersected = () => {
     HOVERED_INTERSECTED.selected = HOVERED_INTERSECTED.object!;
     HOVERED_INTERSECTED.selectedColor = HOVERED_INTERSECTED.objectColor;
-    (HOVERED_INTERSECTED.selected.material as THREE.MeshBasicMaterial).color.setStyle('yellow')
+    (HOVERED_INTERSECTED.selected.material as THREE.MeshBasicMaterial).color.setStyle('brown')
   }
 
 
@@ -86,11 +86,9 @@ export const createDotsConnector = () => {
       if (dots.start && selectedObject !== dots.start) {
         dots.end = selectedObject
 
-        const { isPathExist, startSetAdd } = graphDataHelper(dots.start, dots.end)
-
+        const { isPathExist } = addLineHelper(dots.start, dots.end)
         if (isPathExist) return;
         destroySelectedIntersected()
-        startSetAdd(dots.end);
 
         dots.start = dots.end
         dots.end = null

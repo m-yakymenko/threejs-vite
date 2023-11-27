@@ -11,7 +11,7 @@ export const setupCameraForPoints = (points: THREE.Vector3[]) => {
   boundingBox.getSize(size);
 
   const maxSize = Math.max(size.x, size.y, size.z);
-  const distance = maxSize / (1.5 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+  const distance = maxSize / (1.2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
 
   camera.position.copy(center);
   camera.position.z += distance;

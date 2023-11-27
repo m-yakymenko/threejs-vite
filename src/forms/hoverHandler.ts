@@ -36,7 +36,7 @@ export const hoverHandler = () => {
 
         HOVERED_INTERSECTED.object = intersected
         HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle('red')
+        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle('chartreuse')
       }
     } else {
       if (HOVERED_INTERSECTED.object) {

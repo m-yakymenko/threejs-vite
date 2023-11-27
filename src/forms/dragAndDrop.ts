@@ -13,13 +13,16 @@ export const makeObjDraggable = () => {
   })
   transformControl.addEventListener('change', () => window.dispatchEvent(transformControlsTransformingEvent));
 
+  const detach = () => {
+    transformControl.detach()
+    scene.remove(transformControl)
+  }
 
   const dblclickHandler = () => {
-    if (!HOVERED_INTERSECTED.object) return
+    if (!HOVERED_INTERSECTED.object) return detach()
 
     if (transformControl.object === HOVERED_INTERSECTED.object) {
-      transformControl.detach()
-      scene.remove(transformControl)
+      detach()
     } else {
       transformControl.attach(HOVERED_INTERSECTED.object)
       scene.add(transformControl);

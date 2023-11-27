@@ -7,8 +7,9 @@ import { TypedGroupType } from './types'
 
 
 export const scene = new THREE.Scene()
+//scene.background = new THREE.Color('white')
 
-export const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000)
+export const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000)
 export const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
