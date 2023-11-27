@@ -5,13 +5,52 @@ import { HOVERED_INTERSECTED } from "./hoverHandler"
 import { dotsGroup, linesGroup } from "../singleton"
 import { transformControlsTransformingEventName } from '../events'
 import { throttle } from 'throttle-debounce'
+import { randomIntFromInterval } from '../utils'
 
 type EdgeArrayType = Array<{
   dot: THREE.Mesh,
-  line: THREE.Line
+  line: THREE.Line,
+  distance: number,
 }>
 type MapType = { [key: number]: EdgeArrayType }
 const graph: MapType = {}
+
+export const findPathByDijkstraAlgorithm = (): void => {
+  const startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  const endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  if (startDot === endDot) return findPathByDijkstraAlgorithm()
+
+  const currentQueue: MapType = {}
+  const nextQueue: MapType = {};
+
+  const pathMap = new Map<number,
+    {
+      distance: number;
+      path: number[];
+    }
+  >();
+
+  Object.keys(graph).forEach(key => pathMap.set(+key, {
+    distance: Infinity,
+    path: [],
+  }))
+
+  currentQueue[startDot.id] = graph[startDot.id]
+
+  for (const [previousDotId, dots] of Object.entries(currentQueue)) {
+    for (let i = 0; i < dots.length; i++) {
+      const line = dots[i].line
+      line.computeLineDistances();
+      pathMap.set(dots[i].dot.id, {
+        distance: line.geometry.attributes.lineDistance.getX(line.geometry.attributes.lineDistance.count - 1),
+        path: [+previousDotId]
+      })
+    }
+  }
+
+  console.log(pathMap);
+
+}
 
 const createLinesHandler = () => {
   linesGroup.clear()
@@ -40,7 +79,7 @@ export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
 
   if (!isPathExist) {
     const line = createLines([dotStart.position, dotSEnd.position]);
-    startSet.push({ dot: dotSEnd, line })
+    startSet.push({ dot: dotSEnd, line, distance: Infinity })
   }
 
   return { startSet, endSet, isPathExist }
