@@ -3,11 +3,12 @@ import { camera, dotsGroup, linesGroup } from '../singleton'
 import { setupCameraForPoints } from '../camera/cameraHelpers'
 import { addLineHelper } from './dotsConnector'
 import { randomIntFromInterval } from '../utils'
+import { COLOR } from '../constans'
 
 export const createLines = (points: THREE.Vector3[]) => {
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: 'cadetblue',
+    color: COLOR.LINE,
     linewidth: 5, // in pixels
   })
   const line = new THREE.Line(lineGeometry, lineMaterial)
@@ -18,7 +19,7 @@ export const createLines = (points: THREE.Vector3[]) => {
 
 export const createDot = (position?: THREE.Vector3) => {
   const dotGeometry = new THREE.SphereGeometry(0.1);
-  const dotMaterial = new THREE.MeshStandardMaterial({ color: 'bisque', });
+  const dotMaterial = new THREE.MeshStandardMaterial({ color: COLOR.DOT, });
   const sphere = new THREE.Mesh(dotGeometry, dotMaterial);
   sphere.position.copy(position || new THREE.Vector3().copy(camera.position).setZ(0));
   sphere.castShadow = true

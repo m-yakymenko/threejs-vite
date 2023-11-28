@@ -6,7 +6,8 @@ import { makeObjDraggable } from './forms/dragAndDrop.ts'
 import { hoverHandler } from './forms/hoverHandler.ts'
 import { addGridHelper } from './camera/gridHelper.ts'
 import { createGui } from './gui.ts'
-import { createDotsConnector, findPathByDijkstraAlgorithm } from './forms/dotsConnector.ts'
+import { createDotsConnector } from './forms/dotsConnector.ts'
+import { findPathByDijkstraAlgorithm } from './algoritms/dijkstra.ts'
 
 
 const init = () => {
@@ -16,12 +17,12 @@ const init = () => {
   addGridHelper()
   createGui()
 
-  createBasicDots()
   hoverHandler()
   makeObjDraggable()
 
+  createBasicDots()
   createDotsConnector()
-  findPathByDijkstraAlgorithm()
+  //findPathByDijkstraAlgorithm()
 }
 
 init()

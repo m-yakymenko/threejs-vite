@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { camera, dotsGroup } from '../singleton'
 import { throttle } from 'throttle-debounce'
+import { COLOR } from '../constans'
 
 export const HOVERED_INTERSECTED = {
   object: null as THREE.Mesh | null,
@@ -36,7 +37,7 @@ export const hoverHandler = () => {
 
         HOVERED_INTERSECTED.object = intersected
         HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle('chartreuse')
+        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_HOVERED)
       }
     } else {
       if (HOVERED_INTERSECTED.object) {
