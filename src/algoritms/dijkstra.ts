@@ -1,15 +1,22 @@
 import { COLOR } from "../constans";
+import { HOVERED_INTERSECTED, resetSelected } from "../forms/hoverHandler";
 import { returnBasicColors } from "../helpers";
 import { graph } from "../singleton";
 import { MapType } from "../types";
 
 const startEndDot = { startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }
 
-export const setStartAndEndDots = (startDot: THREE.Mesh, endDot: THREE.Mesh) => {
-  startEndDot.startDot = startDot;
-  startEndDot.endDot = endDot;
+export const selectStartDot = () => {
+  startEndDot.startDot = HOVERED_INTERSECTED.selected
+  resetSelected()
   colorizeStartEndDots()
 }
+export const selectEndDot = () => {
+  startEndDot.endDot = HOVERED_INTERSECTED.selected
+  resetSelected()
+  colorizeStartEndDots()
+}
+
 
 const colorizeStartEndDots = () => {
   startEndDot.startDot && (startEndDot.startDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_START);

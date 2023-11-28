@@ -3,8 +3,6 @@ import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
 import { MapType, TypedGroupType } from './types'
-import DAT_GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
-import { getSetStartEndDotsEvent, } from './events'
 
 
 export const scene = new THREE.Scene()
@@ -41,23 +39,5 @@ window.requestAnimationFrame(render)
 
 
 export const graph: MapType = {}
-export const GUI = new DAT_GUI();
 
-class State {
-  private _selectingStartEnd: boolean
 
-  constructor() {
-    this._selectingStartEnd = false
-  }
-
-  public set selectingStartEnd(state: boolean) {
-    this._selectingStartEnd !== state && window.dispatchEvent(getSetStartEndDotsEvent(state))
-    this._selectingStartEnd = state
-  }
-
-  public get selectingStartEnd() {
-    return this._selectingStartEnd
-  }
-}
-
-export const state = new State()

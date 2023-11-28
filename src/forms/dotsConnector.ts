@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { COLOR, MESH_ELEMENTS_TYPE } from "../constans"
 import { createLines } from "./forms"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { dotsGroup, graph, linesGroup, state } from "../singleton"
+import { dotsGroup, graph, linesGroup, } from "../singleton"
 import { transformControlsTransformingEventName } from '../events'
 import { throttle } from 'throttle-debounce'
 
@@ -72,7 +72,6 @@ export const createDotsConnector = () => {
   )
 
   window.addEventListener('click', () => {
-    if (state.selectingStartEnd) return
     const selectedObject = HOVERED_INTERSECTED.object
 
     if (selectedObject) {

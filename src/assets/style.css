@@ -21,5 +21,16 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: auto;
+  width: 200px;
+  padding: 10px;
+}
+
+.gui {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+button.selected {
+  background-color: gray;
 }

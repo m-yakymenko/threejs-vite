@@ -10,6 +10,11 @@ export const HOVERED_INTERSECTED = {
   selectedColor: null as any | null,
 }
 
+export const resetSelected = () => {
+  HOVERED_INTERSECTED.selected = null
+  HOVERED_INTERSECTED.selectedColor = null
+}
+
 export const hoverHandler = () => {
   const raycaster = new THREE.Raycaster()
   const pointer = new THREE.Vector2()
