@@ -16,3 +16,10 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+
+#gui {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+}
