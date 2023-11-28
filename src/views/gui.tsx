@@ -1,7 +1,7 @@
 
 import { clearAll, createDotsAndLines, } from '../helpers';
 import { createDot } from '../forms/forms';
-import { findPathByDijkstraAlgorithm, selectEndDot, selectStartDot } from '../algoritms/dijkstra';
+import { findPathByDijkstraAlgorithm, selectEndDot, selectStartDot, startWithRandomDots } from '../algoritms/dijkstra';
 
 export const Gui = () => {
   const buttons = [
@@ -11,6 +11,7 @@ export const Gui = () => {
     { label: 'Find path', callback: findPathByDijkstraAlgorithm },
     { label: 'Select start dot', callback: selectStartDot },
     { label: 'Select end dot', callback: selectEndDot },
+    { label: 'Find with random dots', callback: startWithRandomDots },
   ];
 
   return (

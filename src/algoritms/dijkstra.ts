@@ -1,8 +1,9 @@
 import { COLOR } from "../constans";
 import { HOVERED_INTERSECTED, resetSelected } from "../forms/hoverHandler";
 import { returnBasicColors } from "../helpers";
-import { graph } from "../singleton";
+import { dotsGroup, graph } from "../singleton";
 import { MapType } from "../types";
+import { randomIntFromInterval } from "../utils";
 
 const startEndDot = { startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }
 
@@ -15,6 +16,12 @@ export const selectEndDot = () => {
   startEndDot.endDot = HOVERED_INTERSECTED.selected
   resetSelected()
   colorizeStartEndDots()
+}
+export const startWithRandomDots = (): void => {
+  startEndDot.startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  startEndDot.endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  if (startEndDot.startDot === startEndDot.endDot) return startWithRandomDots()
+  findPathByDijkstraAlgorithm()
 }
 
 
@@ -97,6 +104,9 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
 
     console.log(dots);
+    if (!dots.length) {
+      return alert("Path doesn't exist")
+    }
 
     dots.forEach(dot => (dot?.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END))
     colorizeStartEndDots()

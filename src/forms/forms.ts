@@ -5,11 +5,18 @@ import { addLineHelper } from './dotsConnector'
 import { randomIntFromInterval } from '../utils'
 import { COLOR } from '../constans'
 
+const colors = new Float32Array([
+  1.0, 0.0, 0.0,  // red (normalized)
+  0.0, 1.0, 0.0   // green (normalized)
+]);
+
 export const createLines = (points: THREE.Vector3[]) => {
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+  lineGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: COLOR.LINE,
+    //color: COLOR.LINE,
     linewidth: 5, // in pixels
+    vertexColors: true,
   })
   const line = new THREE.Line(lineGeometry, lineMaterial)
   line.castShadow = true
