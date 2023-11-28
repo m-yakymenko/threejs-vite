@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   color: white;
 }
@@ -29,8 +33,4 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-
-button.selected {
-  background-color: gray;
 }
