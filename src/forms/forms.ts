@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import { camera, dotsGroup, linesGroup } from '../singleton'
 import { setupCameraForPoints } from '../camera/cameraHelpers'
-import { addLineHelper } from './dotsConnector'
 import { randomIntFromInterval } from '../utils'
 import { COLOR } from '../constans'
+import { addLineHelper } from '../helpers/linesHelper'
 
 const colors = new Float32Array([
   1.0, 0.0, 0.0,  // red (normalized)

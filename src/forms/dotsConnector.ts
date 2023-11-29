@@ -1,26 +1,7 @@
 import * as THREE from 'three'
 import { COLOR, MESH_ELEMENTS_TYPE } from "../constans"
-import { createLines } from "./forms"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { graph } from '../singleton'
-
-
-export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
-  graph[dotStart.id] || (graph[dotStart.id] = [])
-  graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
-
-  const startSet = graph[dotStart.id]!
-  const endSet = graph[dotSEnd.id]!
-
-  const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
-
-  if (!isPathExist) {
-    const line = createLines([dotStart.position, dotSEnd.position]);
-    startSet.push({ dot: dotSEnd, line })
-  }
-
-  return { startSet, endSet, isPathExist }
-}
+import { addLineHelper } from '../helpers/linesHelper'
 
 export const createDotsConnector = () => {
   const dots = {

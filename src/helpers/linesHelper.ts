@@ -18,4 +18,19 @@ export const removeAllLinesAndDrawFromScratch = () => {
   }
 }
 
+export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
+  graph[dotStart.id] || (graph[dotStart.id] = [])
+  graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
 
+  const startSet = graph[dotStart.id]!
+  const endSet = graph[dotSEnd.id]!
+
+  const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
+
+  if (!isPathExist) {
+    const line = createLines([dotStart.position, dotSEnd.position]);
+    startSet.push({ dot: dotSEnd, line })
+  }
+
+  return { startSet, endSet, isPathExist }
+}
