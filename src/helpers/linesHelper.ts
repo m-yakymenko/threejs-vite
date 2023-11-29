@@ -1,10 +1,8 @@
-import { throttle } from "throttle-debounce"
-import { transformControlsTransformingEventName } from "../events"
 import { createLines } from "../forms/forms"
 import { dotsGroup, graph, linesGroup } from "../singleton"
 
 
-export const createLinesHelper = () => {
+export const removeAllLinesAndDrawFromScratch = () => {
   linesGroup.clear()
 
   for (const [dotId, dots] of Object.entries(graph)) {
@@ -20,7 +18,4 @@ export const createLinesHelper = () => {
   }
 }
 
-window.addEventListener(
-  transformControlsTransformingEventName,
-  throttle(100, createLinesHelper, { noLeading: false, noTrailing: false })
-)
+
