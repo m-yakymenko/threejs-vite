@@ -1,5 +1,5 @@
 import { COLOR } from "../constans";
-import { HOVERED_INTERSECTED, resetSelected } from "../forms/hoverHandler";
+import { HOVERED_INTERSECTED, resetSelected } from "../helpers/hoverHandler";
 import { returnBasicColors } from "../helpers";
 import { dotsGroup, graph } from "../singleton";
 import { MapType } from "../types";

@@ -1,5 +1,7 @@
+import { getCanvasBox } from "../helpers"
+
 export const enableDotClickHandler = () => { //TODO
-  document.getElementById('canvas')!.addEventListener('click', () => {
+  getCanvasBox().addEventListener('click', () => {
 
   })
 }

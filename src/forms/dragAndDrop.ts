@@ -2,7 +2,7 @@
 import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
 import { camera, controls, renderer, scene } from '../singleton'
-import { HOVERED_INTERSECTED } from './hoverHandler'
+import { HOVERED_INTERSECTED } from '../helpers/hoverHandler'
 import { throttle } from 'throttle-debounce';
 import { removeAllLinesAndDrawFromScratch } from '../helpers/linesHelper';
 

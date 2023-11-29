@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 import { camera, renderer, scene, stats } from '../singleton'
+import { getCanvasBox } from '../helpers'
 
 
 export function createScene() {
   renderer.setSize(window.innerWidth, window.innerHeight)
-  document.getElementById('canvas')!.appendChild(renderer.domElement)
+  getCanvasBox().appendChild(renderer.domElement)
   renderer.domElement.appendChild(stats.dom)
 
   window.addEventListener("resize", () => {

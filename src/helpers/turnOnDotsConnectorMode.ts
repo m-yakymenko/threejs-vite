@@ -1,9 +1,10 @@
 import * as THREE from 'three'
 import { COLOR, MESH_ELEMENTS_TYPE } from "../constans"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { addLineHelper } from '../helpers/linesHelper'
+import { addLineHelper } from './linesHelper'
+import { getCanvasBox } from '../helpers'
 
-export const createDotsConnector = () => {
+export const turnOnDotsConnectorMode = () => {
   const dots = {
     start: null as THREE.Mesh | null,
     end: null as THREE.Mesh | null,
@@ -27,7 +28,7 @@ export const createDotsConnector = () => {
     (HOVERED_INTERSECTED.selected.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_SELECTED)
   }
 
-  window.addEventListener('click', () => {
+  const clickHandler = () => {
     const selectedObject = HOVERED_INTERSECTED.object
 
     if (selectedObject) {
@@ -49,5 +50,9 @@ export const createDotsConnector = () => {
     } else {
       destroy()
     }
-  })
+  }
+
+  getCanvasBox().addEventListener('click', clickHandler)
+
+  return () => getCanvasBox().removeEventListener('click', clickHandler)
 }

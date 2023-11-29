@@ -2,9 +2,9 @@ import './assets/style.css'
 
 import { addLight, addPlane, createScene, } from './camera/scene.ts'
 import { makeObjDraggable } from './forms/dragAndDrop.ts'
-import { hoverHandler } from './forms/hoverHandler.ts'
+import { hoverHandler } from './helpers/hoverHandler.ts'
 import { addGridHelper } from './camera/gridHelper.ts'
-import { createDotsConnector } from './forms/dotsConnector.ts'
+import { turnOnDotsConnectorMode } from './helpers/turnOnDotsConnectorMode.ts'
 import { createRandomDotsAndLines } from './helpers.ts'
 
 const init = () => {
@@ -17,7 +17,7 @@ const init = () => {
   makeObjDraggable()
 
   createRandomDotsAndLines()
-  createDotsConnector()
+  turnOnDotsConnectorMode()
 }
 
 init()

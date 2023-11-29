@@ -19,4 +19,4 @@ export const returnBasicColors = () => {
   linesGroup.children.forEach(mesh => (mesh.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE))
 }
 
-
+export const getCanvasBox = () => document.getElementById('canvas')!
