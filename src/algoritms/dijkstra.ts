@@ -1,29 +1,51 @@
 import { COLOR } from "../constans";
-import { HOVERED_INTERSECTED, resetSelected } from "../helpers/hoverHandler";
-import { returnBasicColors } from "../helpers";
+import { HOVERED_INTERSECTED } from "../helpers/hoverHandler";
+import { getCanvasBox, returnBasicColors } from "../helpers";
 import { dotsGroup, graph } from "../singleton";
 import { MapType } from "../types";
 import { randomIntFromInterval } from "../utils";
+import { useStateStore } from "../store";
 
 const startEndDot = { startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }
 
-export const selectStartDot = () => {
-  startEndDot.startDot = HOVERED_INTERSECTED.selected
-  resetSelected()
+const selectStartEndDot = () => {
+  if (!startEndDot.startDot) {
+    startEndDot.startDot = HOVERED_INTERSECTED.object
+    HOVERED_INTERSECTED.objectColor = COLOR.DOT_START
+  } else if (startEndDot.startDot && startEndDot.endDot) {
+    (startEndDot.startDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT);
+    (startEndDot.endDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_START);
+    startEndDot.startDot = startEndDot.endDot
+
+    startEndDot.endDot = HOVERED_INTERSECTED.object
+    HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
+  } else {
+    startEndDot.endDot = HOVERED_INTERSECTED.object
+    HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
+  }
+
   colorizeStartEndDots()
-}
-export const selectEndDot = () => {
-  startEndDot.endDot = HOVERED_INTERSECTED.selected
-  resetSelected()
-  colorizeStartEndDots()
-}
-export const startWithRandomDots = (): void => {
-  startEndDot.startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
-  startEndDot.endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
-  if (startEndDot.startDot === startEndDot.endDot) return startWithRandomDots()
-  findPathByDijkstraAlgorithm()
 }
 
+export const selectStartEndDotHelper = () => {
+  const isStartEndDotsSelecting = useStateStore.getState().isStartEndDotsSelecting
+
+  if (isStartEndDotsSelecting) {
+    getCanvasBox().removeEventListener('click', selectStartEndDot)
+  } else {
+    getCanvasBox().addEventListener('click', selectStartEndDot)
+  }
+
+  useStateStore.setState({ isStartEndDotsSelecting: !isStartEndDotsSelecting })
+}
+
+export const setRandomDots = (): void => {
+  startEndDot.startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  startEndDot.endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  if (startEndDot.startDot === startEndDot.endDot) return setRandomDots()
+  returnBasicColors()
+  colorizeStartEndDots()
+}
 
 const colorizeStartEndDots = () => {
   startEndDot.startDot && (startEndDot.startDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_START);
@@ -32,7 +54,10 @@ const colorizeStartEndDots = () => {
 
 export const findPathByDijkstraAlgorithm = (): void => {
   const { startDot, endDot } = startEndDot
-  if (startDot === endDot || !startDot || !endDot) return
+  if (startDot === endDot || !startDot || !endDot) {
+    selectStartEndDotHelper()
+    return alert('Choose start and end dots')
+  }
   returnBasicColors()
   colorizeStartEndDots()
 

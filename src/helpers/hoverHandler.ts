@@ -6,13 +6,6 @@ import { COLOR } from '../constans'
 export const HOVERED_INTERSECTED = {
   object: null as THREE.Mesh | null,
   objectColor: null as any | null,
-  selected: null as THREE.Mesh | null,
-  selectedColor: null as any | null,
-}
-
-export const resetSelected = () => {
-  HOVERED_INTERSECTED.selected = null
-  HOVERED_INTERSECTED.selectedColor = null
 }
 
 export const hoverHandler = () => {
@@ -28,27 +21,23 @@ export const hoverHandler = () => {
 
   window.addEventListener('pointermove', onPointerMove)
 
-  const isSame = (object: THREE.Mesh) => !!object && !!HOVERED_INTERSECTED.selected && object.id === HOVERED_INTERSECTED.selected.id
-
   const render = () => {
     raycaster.setFromCamera(pointer, camera)
     const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as THREE.Mesh | undefined
 
     if (intersected) {
-      if (!isSame(intersected)) {
-        if (HOVERED_INTERSECTED.object) {
-          (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
-        }
-
-        HOVERED_INTERSECTED.object = intersected
-        HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_HOVERED)
+      if (HOVERED_INTERSECTED.object) {
+        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
       }
+
+      HOVERED_INTERSECTED.object = intersected;
+      HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
+      (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_HOVERED);
     } else {
       if (HOVERED_INTERSECTED.object) {
-        if (!isSame(HOVERED_INTERSECTED.object)) {
-          (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
-        }
+        console.log(HOVERED_INTERSECTED.objectColor);
+
+        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor);
         HOVERED_INTERSECTED.object = null
         HOVERED_INTERSECTED.objectColor = null
 
