@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
 interface StoreInterface {
-  turnOnDotsConnectorMode: boolean;
+  isTurnOnDotsConnectorMode: boolean;
 }
 
 export const useStateStore = create<StoreInterface>((set) => ({
-  turnOnDotsConnectorMode: false,
+  isTurnOnDotsConnectorMode: false,
   //increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
   //removeAllBears: () => set({ bears: 0 }),
 }))
