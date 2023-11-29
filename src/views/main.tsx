@@ -1,4 +1,4 @@
-import { Gui } from './gui';
+import { App } from './app';
 import { render } from 'preact'
 
-render(<Gui />, document.getElementById('gui')!);
+render(<App />, document.getElementById('gui')!);
