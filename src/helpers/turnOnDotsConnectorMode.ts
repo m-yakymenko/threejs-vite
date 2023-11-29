@@ -56,3 +56,7 @@ export const turnOnDotsConnectorMode = () => {
 
   return () => getCanvasBox().removeEventListener('click', clickHandler)
 }
+
+const turnOnDotsConnectorModeHelper = () => {
+
+}
