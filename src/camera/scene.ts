@@ -4,7 +4,7 @@ import { camera, renderer, scene, stats } from '../singleton'
 
 export function createScene() {
   renderer.setSize(window.innerWidth, window.innerHeight)
-  document.body.appendChild(renderer.domElement)
+  document.getElementById('canvas')!.appendChild(renderer.domElement)
   renderer.domElement.appendChild(stats.dom)
 
   window.addEventListener("resize", () => {

@@ -2,25 +2,8 @@ import * as THREE from 'three'
 import { COLOR, MESH_ELEMENTS_TYPE } from "../constans"
 import { createLines } from "./forms"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { dotsGroup, graph, linesGroup, } from "../singleton"
-import { transformControlsTransformingEventName } from '../events'
-import { throttle } from 'throttle-debounce'
+import { graph } from '../singleton'
 
-const createLinesHandler = () => {
-  linesGroup.clear()
-
-  for (const [dotId, dots] of Object.entries(graph)) {
-    const dot = dotsGroup.children.find(child => child.id === +dotId)
-    if (!dot) return
-
-    dots.forEach(endDot => {
-      endDot.line = createLines([
-        dot.position,
-        endDot.dot.position,
-      ])
-    })
-  }
-}
 
 export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
   graph[dotStart.id] || (graph[dotStart.id] = [])
@@ -66,10 +49,7 @@ export const createDotsConnector = () => {
 
 
 
-  window.addEventListener(
-    transformControlsTransformingEventName,
-    throttle(100, createLinesHandler, { noLeading: false, noTrailing: false })
-  )
+
 
   window.addEventListener('click', () => {
     const selectedObject = HOVERED_INTERSECTED.object

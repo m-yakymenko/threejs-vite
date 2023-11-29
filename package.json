@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.7.0",
+    "@types/pubsub-js": "^1.8.6",
     "@types/three": "^0.158.3",
     "@types/throttle-debounce": "^5.0.2",
     "autoprefixer": "^10.4.16",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "preact": "^10.19.2",
+    "pubsub-js": "^1.9.4",
     "reset-css": "^5.0.2",
     "three": "^0.158.0",
     "throttle-debounce": "^5.0.0"
