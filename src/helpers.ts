@@ -1,6 +1,5 @@
 import { COLOR } from "./constans"
-import { createDotsConnector } from "./forms/dotsConnector"
-import { createBasicDots } from "./forms/forms"
+import { createBasicDots, createBasicLines } from "./forms/forms"
 import { dotsGroup, graph, linesGroup } from "./singleton"
 import { clearObject } from "./utils"
 
@@ -10,9 +9,9 @@ export const clearAll = () => {
   clearObject(graph)
 }
 
-export const createDotsAndLines = () => {
+export const createRandomDotsAndLines = () => {
   createBasicDots()
-  createDotsConnector()
+  createBasicLines()
 }
 
 export const returnBasicColors = () => {

@@ -28,7 +28,6 @@ export const createDotsConnector = () => {
     end: null as THREE.Mesh | null,
   }
 
-
   const destroy = () => {
     dots.start = null
     dots.end = null
@@ -46,10 +45,6 @@ export const createDotsConnector = () => {
     HOVERED_INTERSECTED.selectedColor = HOVERED_INTERSECTED.objectColor;
     (HOVERED_INTERSECTED.selected.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_SELECTED)
   }
-
-
-
-
 
   window.addEventListener('click', () => {
     const selectedObject = HOVERED_INTERSECTED.object

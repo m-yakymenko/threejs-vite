@@ -41,7 +41,6 @@ export const createBasicDots = () => {
 
   const vectors = data.map(coord => new THREE.Vector3(...coord))
   setupCameraForPoints(vectors)
-  createBasicLines()
 }
 
 export const createBasicLines = () => {
