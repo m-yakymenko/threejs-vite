@@ -24,7 +24,7 @@ export const Gui = () => {
     <div className="gui">
       {buttons.map(btn =>
         <button
-          className={classNames("bg-slate-800", { 'bg-slate-400': btn.turned, 'hover:bg-slate-600': !btn.turned })}
+          className={classNames({ 'bg-slate-400': btn.turned, 'hover:bg-slate-600 bg-slate-800': !btn.turned })}
           onClick={() => btn.callback()}>
           {btn.label}
         </button>)}

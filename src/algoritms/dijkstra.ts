@@ -6,7 +6,17 @@ import { MapType } from "../types";
 import { randomIntFromInterval } from "../utils";
 import { useStateStore } from "../store";
 
-const startEndDot = { startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }
+const startEndDot = new Proxy({ startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }, {
+  set(obj, key, newValue) {
+    switch (true) {
+      case key === 'startDot':
+
+        break;
+    }
+
+    return Reflect.set(obj, key, newValue)
+  },
+})
 
 const selectStartEndDot = () => {
   if (!startEndDot.startDot) {
@@ -123,17 +133,20 @@ export const findPathByDijkstraAlgorithm = (): void => {
     console.log('final', pathMap.get(endDot.id));
 
     const end = pathMap.get(endDot.id)!;
-    const dots = [startDot.id, ...end.previousNodeId]
-      .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])?.line)
+    const dotsLines = [startDot.id, ...end.previousNodeId]
+      .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
       .filter(Boolean)
 
 
-    console.log(dots);
-    if (!dots.length) {
+    console.log(dotsLines);
+    if (!dotsLines.length) {
       return alert("Path doesn't exist")
     }
 
-    dots.forEach(dot => (dot?.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END))
+    dotsLines.forEach(({ dot, line }) => {
+      (dot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END);
+      (line.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END);
+    })
     colorizeStartEndDots()
   }
 
