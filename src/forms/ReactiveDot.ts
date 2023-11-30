@@ -27,7 +27,7 @@ export class ReactiveDot extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStan
 
   constructor(geometry: THREE.SphereGeometry, material: THREE.MeshStandardMaterial) {
     super(geometry, material)
-    this.proxy = getBaseProxyHelper<ReactiveDot, DotType>(this, DotsColor)
+    this.proxy = getBaseProxyHelper<ProxyInterface>(this, DotsColor, 'dot')
   }
 }
 

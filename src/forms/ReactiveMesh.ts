@@ -1,18 +1,22 @@
 
-export type DotType =
-  'dot' |
-  'hovered' |
-  'selected';
+interface ProxyInterface {
+  _mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial> | THREE.Line<THREE.BufferGeometry, THREE.LineBasicMaterial>;
+  type: string;
+}
 
-export const getBaseProxyHelper = <M extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>, D extends string>(mesh: M, DotsColor: { [key in D]: string }) =>
+export const getBaseProxyHelper = <M extends ProxyInterface>(
+  mesh: M['_mesh'],
+  DotsColor: { [key in M['type']]: string },
+  initType: M['type']
+) =>
   new Proxy({
-    _mesh: mesh as M,
-    type: 'dot' as D,
+    _mesh: mesh as M['_mesh'],
+    type: initType as M['type'],
   }, {
     set(obj, key, newValue) {
       switch (true) {
         case key === 'type':
-          obj._mesh.material.color.setStyle(DotsColor[newValue as D]);
+          obj._mesh.material.color.setStyle(DotsColor[newValue as M['type']]);
           break;
       }
       return Reflect.set(obj, key, newValue)
