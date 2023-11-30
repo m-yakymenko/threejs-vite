@@ -8,3 +8,6 @@ export type EdgeArrayType = Array<{
   line: THREE.Line,
 }>
 export type MapType = { [key: number]: EdgeArrayType }
+
+
+export type ThreeDotType = THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>

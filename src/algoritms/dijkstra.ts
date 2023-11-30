@@ -2,11 +2,11 @@ import { COLOR } from "../constans";
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler";
 import { getCanvasBox, returnBasicColors } from "../helpers";
 import { dotsGroup, graph } from "../singleton";
-import { MapType } from "../types";
+import { MapType, ThreeDotType } from "../types";
 import { randomIntFromInterval } from "../utils";
 import { useStateStore } from "../store";
 
-const startEndDot = new Proxy({ startDot: null, endDot: null } as { startDot: THREE.Mesh | null, endDot: THREE.Mesh | null }, {
+const startEndDot = new Proxy({ startDot: null, endDot: null } as { startDot: ThreeDotType | null, endDot: ThreeDotType | null }, {
   set(obj, key, newValue) {
     switch (true) {
       case key === 'startDot':
@@ -20,17 +20,17 @@ const startEndDot = new Proxy({ startDot: null, endDot: null } as { startDot: TH
 
 const selectStartEndDot = () => {
   if (!startEndDot.startDot) {
-    startEndDot.startDot = HOVERED_INTERSECTED.object
+    startEndDot.startDot = HOVERED_INTERSECTED.object as ThreeDotType
     HOVERED_INTERSECTED.objectColor = COLOR.DOT_START
   } else if (startEndDot.startDot && startEndDot.endDot) {
-    (startEndDot.startDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT);
-    (startEndDot.endDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_START);
+    startEndDot.startDot.material.color.setStyle(COLOR.DOT);
+    startEndDot.endDot.material.color.setStyle(COLOR.DOT_START);
     startEndDot.startDot = startEndDot.endDot
 
-    startEndDot.endDot = HOVERED_INTERSECTED.object
+    startEndDot.endDot = HOVERED_INTERSECTED.object as ThreeDotType
     HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
   } else {
-    startEndDot.endDot = HOVERED_INTERSECTED.object
+    startEndDot.endDot = HOVERED_INTERSECTED.object as ThreeDotType
     HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
   }
 
@@ -58,8 +58,8 @@ export const setRandomDots = (): void => {
 }
 
 const colorizeStartEndDots = () => {
-  startEndDot.startDot && (startEndDot.startDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_START);
-  startEndDot.endDot && (startEndDot.endDot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_END);
+  startEndDot.startDot && startEndDot.startDot.material.color.setStyle(COLOR.DOT_START);
+  startEndDot.endDot && startEndDot.endDot.material.color.setStyle(COLOR.DOT_END);
 }
 
 export const findPathByDijkstraAlgorithm = (): void => {
