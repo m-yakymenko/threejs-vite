@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { COLOR } from '../constans';
+import { getBaseProxyHelper } from './ReactiveMesh';
 
 export type DotType =
   'dot' |
@@ -26,22 +27,8 @@ export class ReactiveDot extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStan
 
   constructor(geometry: THREE.SphereGeometry, material: THREE.MeshStandardMaterial) {
     super(geometry, material)
-    this.proxy = this._getBaseProxy(this)
-  }
-
-  private _getBaseProxy(mesh: ReactiveDot) {
-    return new Proxy<ProxyInterface>({
-      _mesh: mesh,
-      type: 'dot',
-    }, {
-      set(obj, key, newValue) {
-        switch (true) {
-          case key === 'type':
-            obj._mesh.material.color.setStyle(DotsColor[newValue as DotType]);
-            break;
-        }
-        return Reflect.set(obj, key, newValue)
-      },
-    })
+    this.proxy = getBaseProxyHelper<ReactiveDot, DotType>(this, DotsColor)
   }
 }
+
+//ReactiveDot.prototype.proxy.type = ''
