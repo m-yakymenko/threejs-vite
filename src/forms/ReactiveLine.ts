@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { COLOR } from '../constans';
+import { getBaseProxyHelper } from './ReactiveMesh';
 
 export type LineType =
   'line' |
@@ -23,22 +24,6 @@ export class ReactiveLine extends THREE.Line<THREE.BufferGeometry, THREE.LineBas
 
   constructor(geometry: THREE.BufferGeometry, material: THREE.LineBasicMaterial) {
     super(geometry, material)
-    this.proxy = this._getBaseProxy(this)
-  }
-
-  private _getBaseProxy(mesh: ReactiveLine) {
-    return new Proxy<ProxyInterface>({
-      _mesh: mesh,
-      type: 'line',
-    }, {
-      set(obj, key, newValue) {
-        switch (true) {
-          case key === 'type':
-            obj._mesh.material.color.setStyle(LinesColor[newValue as LineType]);
-            break;
-        }
-        return Reflect.set(obj, key, newValue)
-      },
-    })
+    this.proxy = getBaseProxyHelper<ProxyInterface>(this, LinesColor, 'line')
   }
 }
