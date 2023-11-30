@@ -5,6 +5,7 @@ export type DotType =
   'dot' |
   'startDot' |
   'hovered' |
+  'selected' |
   'endDot' |
   'pathToEnd';
 interface ProxyInterface {
@@ -15,6 +16,7 @@ const DotsColor: { [key in DotType]: string } = {
   'dot': COLOR.DOT,
   'startDot': COLOR.DOT_START,
   'hovered': COLOR.DOT_HOVERED,
+  'selected': COLOR.DOT_SELECTED,
   'endDot': COLOR.DOT_END,
   'pathToEnd': COLOR.SUCCESS,
 } as const

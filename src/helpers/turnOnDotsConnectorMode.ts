@@ -1,13 +1,11 @@
-import * as THREE from 'three'
-import { MESH_ELEMENTS_TYPE } from "../constans"
 import { HOVERED_INTERSECTED } from "./hoverHandler"
 import { addLineHelper } from './linesHelper'
 import { getCanvasBox } from '../helpers'
 import { useStateStore } from '../store'
+import { ReactiveDot } from "../forms/ReactiveDot"
 
 const dots = {
-  start: null as THREE.Mesh | null,
-  end: null as THREE.Mesh | null,
+  start: null as ReactiveDot | null,
 }
 
 export const turnOnDotsConnector = (turn: boolean) => {
@@ -25,17 +23,12 @@ const dotsConnector = () => {
   const selectedObject = HOVERED_INTERSECTED.object
 
   if (selectedObject) {
-    if (!MESH_ELEMENTS_TYPE.includes(selectedObject.type)) return;
-    if (dots.start && selectedObject !== dots.start) {
-      dots.end = selectedObject
-
-      const { isPathExist } = addLineHelper(dots.start, dots.end)
+    if (dots.start && selectedObject !== dots.start && selectedObject instanceof ReactiveDot) {
+      const { isPathExist } = addLineHelper(dots.start, selectedObject)
       if (isPathExist) return;
-
-      dots.start = dots.end
-      dots.end = null
-    } else {
-      dots.start = selectedObject
+      setSelected(selectedObject)
+    } else if (selectedObject instanceof ReactiveDot) {
+      setSelected(selectedObject)
     }
 
   } else {
@@ -43,7 +36,14 @@ const dotsConnector = () => {
   }
 }
 
+const setSelected = (selectedObject: ReactiveDot) => {
+  destroy()
+  dots.start = selectedObject
+  dots.start.proxy.type = 'selected'
+  HOVERED_INTERSECTED.objectType = 'selected'
+}
+
 const destroy = () => {
+  dots.start && (dots.start.proxy.type = 'dot');
   dots.start = null
-  dots.end = null
 }

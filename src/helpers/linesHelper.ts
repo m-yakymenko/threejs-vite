@@ -1,3 +1,4 @@
+import { ReactiveDot } from "../forms/ReactiveDot"
 import { createLines } from "../forms/line"
 import { dotsGroup, graph, linesGroup } from "../singleton"
 
@@ -18,7 +19,7 @@ export const removeAllLinesAndDrawFromScratch = () => {
   }
 }
 
-export const addLineHelper = (dotStart: THREE.Mesh, dotSEnd: THREE.Mesh) => {
+export const addLineHelper = (dotStart: ReactiveDot, dotSEnd: ReactiveDot) => {
   graph[dotStart.id] || (graph[dotStart.id] = [])
   graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
 

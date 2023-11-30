@@ -5,6 +5,7 @@ import { GraphType } from "../types";
 import { randomIntFromInterval } from "../utils";
 import { useStateStore } from "../store";
 import { ReactiveDot } from "../forms/ReactiveDot";
+import { ReactiveLine } from "../forms/ReactiveLine";
 
 const findStartEndDot = () => ({
   startDot: dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),
@@ -70,7 +71,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
   }
   returnBasicColors()
 
-  const linesLengthsMap = new WeakMap<THREE.Line, number>()
+  const linesLengthsMap = new WeakMap<ReactiveLine, number>()
 
   const pathMap = new Map<number,
     {
@@ -127,12 +128,12 @@ export const findPathByDijkstraAlgorithm = (): void => {
   }
 
   const printResults = () => {
-    console.log({ pathMap, graph });
-    console.log({ startDot: startDot.id, endDot: endDot.id });
-    console.log('final', pathMap.get(endDot.id));
+    //console.log({ pathMap, graph });
+    //console.log({ startDot: startDot.id, endDot: endDot.id });
+    //console.log('final', pathMap.get(endDot.id));
 
     const end = pathMap.get(endDot.id)!;
-    const dotsLines = end.previousNodeId
+    const dotsLines = [startDot.id, ...end.previousNodeId]
       .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
       .filter(Boolean)
 
@@ -144,7 +145,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
     dotsLines.forEach(({ dot, line }) => {
       dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd"); // dont chose last one
-      line.proxy.type === 'line' && (line.proxy.type = "pathToEnd");
+      line.proxy.type = "pathToEnd"
     })
   }
 
