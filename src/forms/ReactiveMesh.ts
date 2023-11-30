@@ -10,8 +10,8 @@ export const getBaseProxyHelper = <M extends ProxyInterface>(
   initType: M['type']
 ) =>
   new Proxy({
-    _mesh: mesh as M['_mesh'],
-    type: initType as M['type'],
+    _mesh: mesh,
+    type: initType,
   }, {
     set(obj, key, newValue) {
       switch (true) {

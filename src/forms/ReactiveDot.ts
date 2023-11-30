@@ -9,10 +9,12 @@ export type DotType =
   'selected' |
   'endDot' |
   'pathToEnd';
+
 interface ProxyInterface {
   _mesh: ReactiveDot;
   type: DotType;
 }
+
 const DotsColor: { [key in DotType]: string } = {
   'dot': COLOR.DOT,
   'startDot': COLOR.DOT_START,
@@ -30,5 +32,3 @@ export class ReactiveDot extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStan
     this.proxy = getBaseProxyHelper<ProxyInterface>(this, DotsColor, 'dot')
   }
 }
-
-//ReactiveDot.prototype.proxy.type = ''
