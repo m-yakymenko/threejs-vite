@@ -1,8 +1,7 @@
-import { COLOR } from "../constans";
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler";
 import { getCanvasBox } from "../helpers";
 import { dotsGroup, graph, linesGroup } from "../singleton";
-import { MapType } from "../types";
+import { GraphType } from "../types";
 import { randomIntFromInterval } from "../utils";
 import { useStateStore } from "../store";
 import { ReactiveDot } from "../forms/ReactiveDot";
@@ -14,20 +13,19 @@ const findStartEndDot = () => ({
 
 const selectStartEndDot = () => {
   if (!(HOVERED_INTERSECTED.object instanceof ReactiveDot)) return
-  console.log(HOVERED_INTERSECTED.object);
   const { startDot, endDot } = findStartEndDot()
 
   if (!startDot) {
     HOVERED_INTERSECTED.object.proxy.type = 'startDot'
-    HOVERED_INTERSECTED.objectColor = COLOR.DOT_START
+    HOVERED_INTERSECTED.objectType = 'startDot'
   } else if (startDot && endDot) {
     startDot.proxy.type = 'dot'
     endDot.proxy.type = 'startDot'
     HOVERED_INTERSECTED.object.proxy.type = 'endDot'
-    HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
+    HOVERED_INTERSECTED.objectType = 'endDot'
   } else {
     HOVERED_INTERSECTED.object.proxy.type = 'endDot'
-    HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
+    HOVERED_INTERSECTED.objectType = 'endDot'
   }
 }
 
@@ -59,8 +57,8 @@ export const setRandomDots = (): void => {
 }
 
 export const returnBasicColors = () => {
-  dotsGroup.children.forEach(dot => dot.proxy.type === "pathToEnd" && (dot.proxy.type = "dot"))
-  linesGroup.children.forEach(mesh => mesh.material.color.setStyle(COLOR.LINE))
+  dotsGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "dot"))
+  linesGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "line"))
 }
 
 
@@ -87,8 +85,8 @@ export const findPathByDijkstraAlgorithm = (): void => {
   }))
 
 
-  const loop = (currentQueue: MapType) => {
-    const nextQueue: MapType = {};
+  const loop = (currentQueue: GraphType) => {
+    const nextQueue: GraphType = {};
 
     for (const [previousDotId, dots] of Object.entries(currentQueue)) {
       for (let i = 0; i < dots.length; i++) {
@@ -99,7 +97,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
         if (!lineLength) {
           line.computeLineDistances();
           lineLength = line.geometry.attributes.lineDistance.getX(line.geometry.attributes.lineDistance.count - 1);
-          line.material.color.setStyle(COLOR.LINE_CHECKED)
+          line.proxy.type = 'pathChecked'
         }
 
         const currentGraph = pathMap.get(currentDotId)!
@@ -146,7 +144,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
     dotsLines.forEach(({ dot, line }) => {
       dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd"); // dont chose last one
-      line.material.color.setStyle(COLOR.LINE_PATH_TO_END);
+      line.proxy.type === 'line' && (line.proxy.type = "pathToEnd");
     })
   }
 

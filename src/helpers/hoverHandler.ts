@@ -1,13 +1,12 @@
 import * as THREE from 'three'
 import { camera, dotsGroup } from '../singleton'
 import { throttle } from 'throttle-debounce'
-import { COLOR } from '../constans'
-import { ReactiveDot } from '../forms/ReactiveDot'
-import { ThreeLineType } from '../types'
+import { DotType, ReactiveDot } from '../forms/ReactiveDot'
+import { LineType, ReactiveLine } from '../forms/ReactiveLine'
 
 export const HOVERED_INTERSECTED = {
-  object: null as ReactiveDot | ThreeLineType | null,
-  objectColor: null as any | null,
+  object: null as ReactiveDot | ReactiveLine | null,
+  objectType: null as LineType | DotType | null,
 }
 
 export const hoverHandler = () => {
@@ -25,23 +24,22 @@ export const hoverHandler = () => {
 
   const render = () => {
     raycaster.setFromCamera(pointer, camera)
-    const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as ReactiveDot | ThreeLineType | undefined
+    const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as ReactiveDot | ReactiveLine | undefined
 
     if (intersected) {
       if (HOVERED_INTERSECTED.object) {
-        HOVERED_INTERSECTED.object.material.color.setStyle(HOVERED_INTERSECTED.objectColor)
+        HOVERED_INTERSECTED.object.proxy.type = HOVERED_INTERSECTED.objectType!
       }
 
-      HOVERED_INTERSECTED.object = intersected;
-      HOVERED_INTERSECTED.objectColor = HOVERED_INTERSECTED.object.material.color.getStyle();
-      HOVERED_INTERSECTED.object.material.color.setStyle(COLOR.DOT_HOVERED);
+      HOVERED_INTERSECTED.object = intersected
+      HOVERED_INTERSECTED.objectType = HOVERED_INTERSECTED.object.proxy.type
+      HOVERED_INTERSECTED.object.proxy.type = 'hovered'
     } else {
       if (HOVERED_INTERSECTED.object) {
-        console.log(HOVERED_INTERSECTED.objectColor);
+        HOVERED_INTERSECTED.object.proxy.type = HOVERED_INTERSECTED.objectType!
 
-        HOVERED_INTERSECTED.object.material.color.setStyle(HOVERED_INTERSECTED.objectColor);
         HOVERED_INTERSECTED.object = null
-        HOVERED_INTERSECTED.objectColor = null
+        HOVERED_INTERSECTED.objectType = null
 
       }
     }

@@ -1,7 +1,12 @@
 import * as THREE from 'three'
 import { COLOR } from '../constans';
 
-type DotType = 'dot' | 'startDot' | 'endDot' | 'pathToEnd';
+export type DotType =
+  'dot' |
+  'startDot' |
+  'hovered' |
+  'endDot' |
+  'pathToEnd';
 interface ProxyInterface {
   _mesh: ReactiveDot;
   type: DotType;
@@ -9,8 +14,9 @@ interface ProxyInterface {
 const DotsColor: { [key in DotType]: string } = {
   'dot': COLOR.DOT,
   'startDot': COLOR.DOT_START,
+  'hovered': COLOR.DOT_HOVERED,
   'endDot': COLOR.DOT_END,
-  'pathToEnd': COLOR.DOT_HOVERED,
+  'pathToEnd': COLOR.SUCCESS,
 } as const
 
 export class ReactiveDot extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial> {

@@ -7,7 +7,7 @@ export const GROUP_DOTS_NAME = "dotsGroup"
 export const COLOR = {
   DOT: 'bisque',
   LINE: 'cadetblue',
-  LINE_PATH_TO_END: 'green',
+  SUCCESS: 'green',
   LINE_CHECKED: 'red',
   DOT_SELECTED: 'brown',
   DOT_HOVERED: 'chartreuse',

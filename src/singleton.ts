@@ -2,8 +2,9 @@ import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
-import { MapType, ThreeLineType, TypedGroupType } from './types'
+import { GraphType, TypedGroupType } from './types'
 import { ReactiveDot } from './forms/ReactiveDot'
+import { ReactiveLine } from './forms/ReactiveLine'
 
 
 export const scene = new THREE.Scene()
@@ -19,7 +20,7 @@ export const stats = new Stats()
 
 export const controls = new OrbitControls(camera, renderer.domElement)
 
-export const linesGroup = new THREE.Group() as TypedGroupType<ThreeLineType>;
+export const linesGroup = new THREE.Group() as TypedGroupType<ReactiveLine>;
 linesGroup.name = GROUP_LINES_NAME
 scene.add(linesGroup);
 
@@ -39,6 +40,6 @@ export const render = () => {
 window.requestAnimationFrame(render)
 
 
-export const graph: MapType = {}
+export const graph: GraphType = {}
 
 
