@@ -1,4 +1,4 @@
-import { createLines } from "../forms/forms"
+import { createLines } from "../forms/line"
 import { dotsGroup, graph, linesGroup } from "../singleton"
 
 

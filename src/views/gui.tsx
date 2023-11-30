@@ -1,6 +1,6 @@
 
 import { clearAll, createRandomDotsAndLines, } from '../helpers';
-import { createDot } from '../forms/forms';
+import { createDot } from '../forms/dot';
 import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomDots } from '../algoritms/dijkstra';
 import classNames from 'classnames';
 import { useStateStore } from '../store';

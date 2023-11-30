@@ -2,9 +2,9 @@
 import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
 import { camera, controls, renderer, scene } from '../singleton'
-import { HOVERED_INTERSECTED } from '../helpers/hoverHandler'
+import { HOVERED_INTERSECTED } from './hoverHandler'
 import { throttle } from 'throttle-debounce';
-import { removeAllLinesAndDrawFromScratch } from '../helpers/linesHelper';
+import { removeAllLinesAndDrawFromScratch } from './linesHelper';
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(camera, renderer.domElement)

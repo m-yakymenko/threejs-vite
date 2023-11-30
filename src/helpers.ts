@@ -1,5 +1,6 @@
 import { COLOR } from "./constans"
-import { createBasicDots, createBasicLines } from "./forms/forms"
+import { createBasicDots } from "./forms/dot"
+import { createBasicLines } from "./forms/line"
 import { dotsGroup, graph, linesGroup } from "./singleton"
 import { clearObject } from "./utils"
 
