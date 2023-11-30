@@ -1,40 +1,34 @@
 import { COLOR } from "../constans";
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler";
-import { getCanvasBox, returnBasicColors } from "../helpers";
-import { dotsGroup, graph } from "../singleton";
-import { MapType, ThreeDotType } from "../types";
+import { getCanvasBox } from "../helpers";
+import { dotsGroup, graph, linesGroup } from "../singleton";
+import { MapType } from "../types";
 import { randomIntFromInterval } from "../utils";
 import { useStateStore } from "../store";
+import { ReactiveDot } from "../forms/ReactiveDot";
 
-const startEndDot = new Proxy({ startDot: null, endDot: null } as { startDot: ThreeDotType | null, endDot: ThreeDotType | null }, {
-  set(obj, key, newValue) {
-    switch (true) {
-      case key === 'startDot':
-
-        break;
-    }
-
-    return Reflect.set(obj, key, newValue)
-  },
+const findStartEndDot = () => ({
+  startDot: dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),
+  endDot: dotsGroup.children.find(dot => dot.proxy.type === 'endDot')
 })
 
 const selectStartEndDot = () => {
-  if (!startEndDot.startDot) {
-    startEndDot.startDot = HOVERED_INTERSECTED.object as ThreeDotType
-    HOVERED_INTERSECTED.objectColor = COLOR.DOT_START
-  } else if (startEndDot.startDot && startEndDot.endDot) {
-    startEndDot.startDot.material.color.setStyle(COLOR.DOT);
-    startEndDot.endDot.material.color.setStyle(COLOR.DOT_START);
-    startEndDot.startDot = startEndDot.endDot
+  if (!(HOVERED_INTERSECTED.object instanceof ReactiveDot)) return
+  console.log(HOVERED_INTERSECTED.object);
+  const { startDot, endDot } = findStartEndDot()
 
-    startEndDot.endDot = HOVERED_INTERSECTED.object as ThreeDotType
+  if (!startDot) {
+    HOVERED_INTERSECTED.object.proxy.type = 'startDot'
+    HOVERED_INTERSECTED.objectColor = COLOR.DOT_START
+  } else if (startDot && endDot) {
+    startDot.proxy.type = 'dot'
+    endDot.proxy.type = 'startDot'
+    HOVERED_INTERSECTED.object.proxy.type = 'endDot'
     HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
   } else {
-    startEndDot.endDot = HOVERED_INTERSECTED.object as ThreeDotType
+    HOVERED_INTERSECTED.object.proxy.type = 'endDot'
     HOVERED_INTERSECTED.objectColor = COLOR.DOT_END
   }
-
-  colorizeStartEndDots()
 }
 
 export const selectStartEndDotHelper = () => {
@@ -49,27 +43,34 @@ export const selectStartEndDotHelper = () => {
   useStateStore.setState({ isStartEndDotsSelecting: !isStartEndDotsSelecting })
 }
 
-export const setRandomDots = (): void => {
-  startEndDot.startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
-  startEndDot.endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
-  if (startEndDot.startDot === startEndDot.endDot) return setRandomDots()
-  returnBasicColors()
-  colorizeStartEndDots()
+const resetStartEndDot = () => {
+  const { startDot, endDot } = findStartEndDot()
+  if (startDot) startDot.proxy.type = 'dot'
+  if (endDot) endDot.proxy.type = 'dot'
 }
 
-const colorizeStartEndDots = () => {
-  startEndDot.startDot && startEndDot.startDot.material.color.setStyle(COLOR.DOT_START);
-  startEndDot.endDot && startEndDot.endDot.material.color.setStyle(COLOR.DOT_END);
+export const setRandomDots = (): void => {
+  const startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  const endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  if (startDot === endDot) return setRandomDots()
+  resetStartEndDot()
+  startDot.proxy.type = 'startDot'
+  endDot.proxy.type = 'endDot'
 }
+
+export const returnBasicColors = () => {
+  dotsGroup.children.forEach(mesh => mesh.material.color.setStyle(COLOR.DOT))
+  linesGroup.children.forEach(mesh => mesh.material.color.setStyle(COLOR.LINE))
+}
+
 
 export const findPathByDijkstraAlgorithm = (): void => {
-  const { startDot, endDot } = startEndDot
+  const { startDot, endDot } = findStartEndDot()
   if (startDot === endDot || !startDot || !endDot) {
     selectStartEndDotHelper()
     return alert('Choose start and end dots')
   }
   returnBasicColors()
-  colorizeStartEndDots()
 
   const linesLengthsMap = new WeakMap<THREE.Line, number>()
 
@@ -98,7 +99,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
         if (!lineLength) {
           line.computeLineDistances();
           lineLength = line.geometry.attributes.lineDistance.getX(line.geometry.attributes.lineDistance.count - 1);
-          (line.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_CHECKED)
+          line.material.color.setStyle(COLOR.LINE_CHECKED)
         }
 
         const currentGraph = pathMap.get(currentDotId)!
@@ -144,10 +145,9 @@ export const findPathByDijkstraAlgorithm = (): void => {
     }
 
     dotsLines.forEach(({ dot, line }) => {
-      (dot.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END);
-      (line.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.LINE_PATH_TO_END);
+      dot.material.color.setStyle(COLOR.LINE_PATH_TO_END);
+      line.material.color.setStyle(COLOR.LINE_PATH_TO_END);
     })
-    colorizeStartEndDots()
   }
 
   loop({ [startDot.id]: graph[startDot.id] })
