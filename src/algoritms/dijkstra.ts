@@ -59,7 +59,7 @@ export const setRandomDots = (): void => {
 }
 
 export const returnBasicColors = () => {
-  dotsGroup.children.forEach(mesh => mesh.material.color.setStyle(COLOR.DOT))
+  dotsGroup.children.forEach(dot => dot.proxy.type === "pathToEnd" && (dot.proxy.type = "dot"))
   linesGroup.children.forEach(mesh => mesh.material.color.setStyle(COLOR.LINE))
 }
 
@@ -134,7 +134,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
     console.log('final', pathMap.get(endDot.id));
 
     const end = pathMap.get(endDot.id)!;
-    const dotsLines = [startDot.id, ...end.previousNodeId]
+    const dotsLines = end.previousNodeId
       .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
       .filter(Boolean)
 
@@ -145,7 +145,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
     }
 
     dotsLines.forEach(({ dot, line }) => {
-      dot.material.color.setStyle(COLOR.LINE_PATH_TO_END);
+      dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd"); // dont chose last one
       line.material.color.setStyle(COLOR.LINE_PATH_TO_END);
     })
   }

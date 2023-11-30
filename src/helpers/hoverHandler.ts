@@ -2,9 +2,11 @@ import * as THREE from 'three'
 import { camera, dotsGroup } from '../singleton'
 import { throttle } from 'throttle-debounce'
 import { COLOR } from '../constans'
+import { ReactiveDot } from '../forms/ReactiveDot'
+import { ThreeLineType } from '../types'
 
 export const HOVERED_INTERSECTED = {
-  object: null as THREE.Mesh | null,
+  object: null as ReactiveDot | ThreeLineType | null,
   objectColor: null as any | null,
 }
 
@@ -23,21 +25,21 @@ export const hoverHandler = () => {
 
   const render = () => {
     raycaster.setFromCamera(pointer, camera)
-    const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as THREE.Mesh | undefined
+    const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as ReactiveDot | ThreeLineType | undefined
 
     if (intersected) {
       if (HOVERED_INTERSECTED.object) {
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor)
+        HOVERED_INTERSECTED.object.material.color.setStyle(HOVERED_INTERSECTED.objectColor)
       }
 
       HOVERED_INTERSECTED.object = intersected;
-      HOVERED_INTERSECTED.objectColor = (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.getStyle();
-      (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(COLOR.DOT_HOVERED);
+      HOVERED_INTERSECTED.objectColor = HOVERED_INTERSECTED.object.material.color.getStyle();
+      HOVERED_INTERSECTED.object.material.color.setStyle(COLOR.DOT_HOVERED);
     } else {
       if (HOVERED_INTERSECTED.object) {
         console.log(HOVERED_INTERSECTED.objectColor);
 
-        (HOVERED_INTERSECTED.object.material as THREE.MeshBasicMaterial).color.setStyle(HOVERED_INTERSECTED.objectColor);
+        HOVERED_INTERSECTED.object.material.color.setStyle(HOVERED_INTERSECTED.objectColor);
         HOVERED_INTERSECTED.object = null
         HOVERED_INTERSECTED.objectColor = null
 
