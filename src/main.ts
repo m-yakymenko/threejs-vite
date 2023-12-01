@@ -18,8 +18,10 @@ const init = () => {
 
   createRandomDotsAndLines()
 
-  setRandomDots()
-  findPathByDijkstraAlgorithm()
+  setTimeout(() => {
+    setRandomDots()
+    findPathByDijkstraAlgorithm()
+  }, 1500);
 }
 
 init()

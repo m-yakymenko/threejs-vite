@@ -71,6 +71,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
     return alert('Choose start and end dots')
   }
   returnBasicColors()
+  useStateStore.setState({ isStartEndDotsSelecting: false })
 
   const linesLengthsMap = new WeakMap<ReactiveLine, number>()
 

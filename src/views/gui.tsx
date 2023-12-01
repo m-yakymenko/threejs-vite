@@ -1,5 +1,5 @@
 
-import { clearAll, createRandomDotsAndLines, } from '../helpers'
+import { deleteAll, createRandomDotsAndLines, clearSelection, } from '../helpers'
 import { createDot } from '../forms/dot'
 import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomDots } from '../algoritms/dijkstra'
 import classNames from 'classnames'
@@ -11,13 +11,14 @@ export const Gui = () => {
   const isStartEndDotsSelecting = useStateStore((state) => state.isStartEndDotsSelecting)
 
   const buttons = [
-    { label: 'Clear', callback: clearAll },
+    { label: 'Delete all', callback: deleteAll },
     { label: 'Add point', callback: createDot },
     { label: 'Create line btw dots', callback: () => turnOnDotsConnector(!isTurnOnDotsConnectorMode), turned: isTurnOnDotsConnectorMode },
     { label: 'Add random dots & lines', callback: createRandomDotsAndLines },
     { label: 'Select start-end dots', callback: selectStartEndDotHelper, turned: isStartEndDotsSelecting },
     { label: 'Set random start-end dots', callback: setRandomDots },
     { label: 'Find path by Dijkstra algorithm', callback: findPathByDijkstraAlgorithm },
+    { label: 'Clear selection', callback: clearSelection },
   ]
 
   return (

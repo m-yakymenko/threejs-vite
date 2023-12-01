@@ -4,7 +4,7 @@ import { createBasicLines } from "./forms/line"
 import { camera, dotsGroup, graph, linesGroup } from "./singleton"
 import { clearObject } from "./utils"
 
-export const clearAll = () => {
+export const deleteAll = () => {
   linesGroup.clear()
   dotsGroup.clear()
   clearObject(graph)
@@ -26,4 +26,9 @@ export const getPositionInFromOfCamera = (dist: number) => {
   vector.add(camera.position)
 
   return vector
+}
+
+export const clearSelection = () => {
+  linesGroup.children.forEach(mesh => mesh.proxy.type = 'line')
+  dotsGroup.children.forEach(mesh => mesh.proxy.type = 'dot')
 }

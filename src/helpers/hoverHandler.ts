@@ -13,7 +13,7 @@ export const hoverHandler = () => {
   const raycaster = new THREE.Raycaster()
   const pointer = new THREE.Vector2()
 
-  const onPointerMove = throttle(100, (event: any) => {
+  const onPointerMove = throttle(100, (event: MouseEvent) => {
     pointer.x = (event.clientX / window.innerWidth) * 2 - 1
     pointer.y = - (event.clientY / window.innerHeight) * 2 + 1
     window.requestAnimationFrame(render)
