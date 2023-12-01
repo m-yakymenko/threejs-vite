@@ -5,10 +5,10 @@ import { randomIntFromInterval } from '../utils'
 import { addLineHelper } from '../helpers/linesHelper'
 import { ReactiveLine } from './ReactiveLine'
 
-const colors = new Float32Array([
-  1.0, 1.0, 0.0,  // yellow (normalized)
-  0.0, 0.0, 1.0   // blue (normalized)
-])
+//const colors = new Float32Array([
+//  1.0, 1.0, 0.0,  // yellow (normalized)
+//  0.0, 0.0, 1.0   // blue (normalized)
+//])
 
 export const createLines = (points: THREE.Vector3[]) => {
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)

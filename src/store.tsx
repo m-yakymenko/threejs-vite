@@ -5,7 +5,9 @@ interface StoreInterface {
   isStartEndDotsSelecting: boolean,
 }
 
-export const useStateStore = create<StoreInterface>((set) => ({
+export const useStateStore = create<StoreInterface>((
+  //set
+) => ({
   isTurnOnDotsConnectorMode: false,
   isStartEndDotsSelecting: false,
   //increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
