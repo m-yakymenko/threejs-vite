@@ -1,10 +1,10 @@
 //import * as THREE from 'three'
-import { TransformControls } from 'three/addons/controls/TransformControls.js';
+import { TransformControls } from 'three/addons/controls/TransformControls.js'
 
 import { camera, controls, renderer, scene } from '../singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
-import { throttle } from 'throttle-debounce';
-import { removeAllLinesAndDrawFromScratch } from './linesHelper';
+import { throttle } from 'throttle-debounce'
+import { removeAllLinesAndDrawFromScratch } from './linesHelper'
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(camera, renderer.domElement)
@@ -13,7 +13,7 @@ export const makeObjDraggable = () => {
   transformControl.addEventListener('dragging-changed', function (event) {
     controls.enabled = !event.value
   })
-  transformControl.addEventListener('change', removeAllLinesAndDrawFromScratchThrottle);
+  transformControl.addEventListener('change', removeAllLinesAndDrawFromScratchThrottle)
 
   const detach = () => {
     transformControl.detach()
@@ -27,9 +27,9 @@ export const makeObjDraggable = () => {
       detach()
     } else {
       transformControl.attach(HOVERED_INTERSECTED.object)
-      scene.add(transformControl);
+      scene.add(transformControl)
     }
   }
 
-  window.addEventListener('dblclick', dblclickHandler);
+  window.addEventListener('dblclick', dblclickHandler)
 }

@@ -8,26 +8,26 @@ import { ReactiveLine } from './forms/ReactiveLine'
 
 
 export const scene = new THREE.Scene()
-//scene.background = new THREE.Color('white')
 
 export const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000)
+
 export const renderer = new THREE.WebGLRenderer({ antialias: true })
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
+renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.shadowMap.enabled = true
 
 export const stats = new Stats()
 
 export const controls = new OrbitControls(camera, renderer.domElement)
 
-export const linesGroup = new THREE.Group() as TypedGroupType<ReactiveLine>;
+export const linesGroup = new THREE.Group() as TypedGroupType<ReactiveLine>
 linesGroup.name = GROUP_LINES_NAME
-scene.add(linesGroup);
+scene.add(linesGroup)
 
 
-export const dotsGroup = new THREE.Group() as TypedGroupType<ReactiveDot>;
+export const dotsGroup = new THREE.Group() as TypedGroupType<ReactiveDot>
 dotsGroup.name = GROUP_DOTS_NAME
-scene.add(dotsGroup);
+scene.add(dotsGroup)
 
 console.log('init')
 
@@ -38,7 +38,6 @@ export const render = () => {
   window.requestAnimationFrame(render)
 }
 window.requestAnimationFrame(render)
-
 
 export const graph: GraphType = {}
 

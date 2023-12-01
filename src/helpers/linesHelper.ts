@@ -29,7 +29,7 @@ export const addLineHelper = (dotStart: ReactiveDot, dotSEnd: ReactiveDot) => {
   const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
 
   if (!isPathExist) {
-    const line = createLines([dotStart.position, dotSEnd.position]);
+    const line = createLines([dotStart.position, dotSEnd.position])
     startSet.push({ dot: dotSEnd, line })
   }
 

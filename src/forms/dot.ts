@@ -6,14 +6,14 @@ import { ReactiveDot } from './ReactiveDot'
 
 
 export const createDot = (position?: THREE.Vector3) => {
-  const dotGeometry = new THREE.SphereGeometry(0.1);
-  const dotMaterial = new THREE.MeshStandardMaterial({ color: COLOR.DOT, });
-  const sphere = new ReactiveDot(dotGeometry, dotMaterial);
-  sphere.position.copy(position || new THREE.Vector3().copy(camera.position).setZ(0));
+  const dotGeometry = new THREE.SphereGeometry(0.1)
+  const dotMaterial = new THREE.MeshStandardMaterial({ color: COLOR.DOT, })
+  const sphere = new ReactiveDot(dotGeometry, dotMaterial)
+  sphere.position.copy(position || new THREE.Vector3().copy(camera.position).setZ(0))
   sphere.castShadow = true
-  sphere.receiveShadow = true;
+  sphere.receiveShadow = true
   dotsGroup.add(sphere)
-  return sphere;
+  return sphere
 }
 
 export const createBasicDots = () => {

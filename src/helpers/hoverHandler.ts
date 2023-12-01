@@ -18,7 +18,7 @@ export const hoverHandler = () => {
     pointer.y = - (event.clientY / window.innerHeight) * 2 + 1
     window.requestAnimationFrame(render)
   }, { noLeading: false, noTrailing: false }
-  );
+  )
 
   window.addEventListener('pointermove', onPointerMove)
 

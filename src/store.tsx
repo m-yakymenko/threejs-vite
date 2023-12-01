@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
 interface StoreInterface {
-  isTurnOnDotsConnectorMode: boolean;
-  isStartEndDotsSelecting: boolean;
+  isTurnOnDotsConnectorMode: boolean,
+  isStartEndDotsSelecting: boolean,
 }
 
 export const useStateStore = create<StoreInterface>((set) => ({

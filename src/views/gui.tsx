@@ -1,10 +1,10 @@
 
-import { clearAll, createRandomDotsAndLines, } from '../helpers';
-import { createDot } from '../forms/dot';
-import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomDots } from '../algoritms/dijkstra';
-import classNames from 'classnames';
-import { useStateStore } from '../store';
-import { turnOnDotsConnector } from '../helpers/turnOnDotsConnectorMode';
+import { clearAll, createRandomDotsAndLines, } from '../helpers'
+import { createDot } from '../forms/dot'
+import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomDots } from '../algoritms/dijkstra'
+import classNames from 'classnames'
+import { useStateStore } from '../store'
+import { turnOnDotsConnector } from '../helpers/turnOnDotsConnectorMode'
 
 export const Gui = () => {
   const isTurnOnDotsConnectorMode = useStateStore((state) => state.isTurnOnDotsConnectorMode)
@@ -18,7 +18,7 @@ export const Gui = () => {
     { label: 'Select start-end dots', callback: selectStartEndDotHelper, turned: isStartEndDotsSelecting },
     { label: 'Set random start-end dots', callback: setRandomDots },
     { label: 'Find path', callback: findPathByDijkstraAlgorithm },
-  ];
+  ]
 
   return (
     <div className="gui">

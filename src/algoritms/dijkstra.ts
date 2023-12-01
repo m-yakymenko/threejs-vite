@@ -1,11 +1,11 @@
-import { HOVERED_INTERSECTED } from "../helpers/hoverHandler";
-import { getCanvasBox } from "../helpers";
-import { dotsGroup, graph, linesGroup } from "../singleton";
-import { GraphType } from "../types";
-import { randomIntFromInterval } from "../utils";
-import { useStateStore } from "../store";
-import { ReactiveDot } from "../forms/ReactiveDot";
-import { ReactiveLine } from "../forms/ReactiveLine";
+import { HOVERED_INTERSECTED } from "../helpers/hoverHandler"
+import { getCanvasBox } from "../helpers"
+import { dotsGroup, graph, linesGroup } from "../singleton"
+import { GraphType } from "../types"
+import { randomIntFromInterval } from "../utils"
+import { useStateStore } from "../store"
+import { ReactiveDot } from "../forms/ReactiveDot"
+import { ReactiveLine } from "../forms/ReactiveLine"
 
 const findStartEndDot = () => ({
   startDot: dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),
@@ -73,12 +73,11 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
   const linesLengthsMap = new WeakMap<ReactiveLine, number>()
 
-  const pathMap = new Map<number,
-    {
-      distance: number;
-      previousNodeId: number[];
-    }
-  >();
+  const pathMap = new Map<number, {
+    distance: number,
+    previousNodeId: number[],
+  }
+  >()
 
   Object.keys(graph).forEach(key => pathMap.set(+key, {
     distance: Infinity,
@@ -87,7 +86,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
 
   const loop = (currentQueue: GraphType) => {
-    const nextQueue: GraphType = {};
+    const nextQueue: GraphType = {}
 
     for (const [previousDotId, dots] of Object.entries(currentQueue)) {
       for (let i = 0; i < dots.length; i++) {
@@ -96,8 +95,8 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
         let lineLength = linesLengthsMap.get(line)
         if (!lineLength) {
-          line.computeLineDistances();
-          lineLength = line.geometry.attributes.lineDistance.getX(line.geometry.attributes.lineDistance.count - 1);
+          line.computeLineDistances()
+          lineLength = line.geometry.attributes.lineDistance.getX(line.geometry.attributes.lineDistance.count - 1)
           line.proxy.type = 'pathChecked'
         }
 
@@ -105,7 +104,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
         const previousGraph = pathMap.get(+previousDotId)!
         lineLength += previousGraph.distance === Infinity ? 0 : previousGraph.distance
 
-        console.log({ lineLength, currentGraph, previousGraph });
+        console.log({ lineLength, currentGraph, previousGraph })
 
         if (currentGraph.distance === Infinity || currentGraph.distance > lineLength) {
           pathMap.set(currentDotId, {
@@ -124,27 +123,27 @@ export const findPathByDijkstraAlgorithm = (): void => {
       } else {
         printResults()
       }
-    }, 500);
+    }, 500)
   }
 
   const printResults = () => {
-    //console.log({ pathMap, graph });
-    //console.log({ startDot: startDot.id, endDot: endDot.id });
-    //console.log('final', pathMap.get(endDot.id));
+    //console.log({ pathMap, graph }),
+    //console.log({ startDot: startDot.id, endDot: endDot.id }),
+    //console.log('final', pathMap.get(endDot.id)),
 
-    const end = pathMap.get(endDot.id)!;
+    const end = pathMap.get(endDot.id)!
     const dotsLines = [startDot.id, ...end.previousNodeId]
       .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
       .filter(Boolean)
 
 
-    console.log(dotsLines);
+    console.log(dotsLines)
     if (!dotsLines.length) {
       return alert("Path doesn't exist")
     }
 
     dotsLines.forEach(({ dot, line }) => {
-      dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd"); // dont chose last one
+      dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd") // dont chose last one
       line.proxy.type = "pathToEnd"
     })
   }

@@ -44,6 +44,6 @@ const setSelected = (selectedObject: ReactiveDot) => {
 }
 
 const destroy = () => {
-  dots.start && (dots.start.proxy.type = 'dot');
+  dots.start && (dots.start.proxy.type = 'dot')
   dots.start = null
 }

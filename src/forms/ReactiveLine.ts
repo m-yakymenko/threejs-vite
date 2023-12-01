@@ -1,16 +1,16 @@
 import * as THREE from 'three'
-import { COLOR } from '../constans';
-import { getBaseProxyHelper } from './ReactiveMesh';
+import { COLOR } from '../constans'
+import { getBaseProxyHelper } from './ReactiveMesh'
 
 export type LineType =
   'line' |
   'hovered' |
   'pathToEnd' |
   'pathChecked'
-  ;
+
 interface ProxyInterface {
-  _mesh: ReactiveLine;
-  type: LineType;
+  _mesh: ReactiveLine,
+  type: LineType,
 }
 const LinesColor: { [key in LineType]: string } = {
   'line': COLOR.LINE,
@@ -20,7 +20,7 @@ const LinesColor: { [key in LineType]: string } = {
 } as const
 
 export class ReactiveLine extends THREE.Line<THREE.BufferGeometry, THREE.LineBasicMaterial> {
-  public proxy: ProxyInterface;
+  public proxy: ProxyInterface
 
   constructor(geometry: THREE.BufferGeometry, material: THREE.LineBasicMaterial) {
     super(geometry, material)
