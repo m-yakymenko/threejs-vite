@@ -5,19 +5,19 @@ import { randomIntFromInterval } from '../utils'
 import { addLineHelper } from '../helpers/linesHelper'
 import { ReactiveLine } from './ReactiveLine'
 
-//const colors = new Float32Array([
-//  1.0, 0.0, 0.0,  // red (normalized)
-//  0.0, 1.0, 0.0   // green (normalized)
-//])
+const colors = new Float32Array([
+  1.0, 1.0, 0.0,  // yellow (normalized)
+  0.0, 0.0, 1.0   // blue (normalized)
+])
 
 export const createLines = (points: THREE.Vector3[]) => {
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
-  //lineGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
   const lineMaterial = new THREE.LineBasicMaterial({
     color: COLOR.LINE,
     linewidth: 5, // in pixels
     //vertexColors: true,
   })
+  //lineGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
   const line = new ReactiveLine(lineGeometry, lineMaterial)
   line.castShadow = true
   linesGroup.add(line)

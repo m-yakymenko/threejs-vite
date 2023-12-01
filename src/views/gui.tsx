@@ -21,10 +21,10 @@ export const Gui = () => {
   ]
 
   return (
-    <div className="gui">
+    <div className="absolute top-0 right-0 p-2 w-52 flex gap-1 flex-col">
       {buttons.map(btn =>
         <button
-          className={classNames({ 'bg-slate-400': btn.turned, 'hover:bg-slate-600 bg-slate-800': !btn.turned })}
+          className={classNames('px-0.5', { 'bg-slate-400': btn.turned, 'hover:bg-slate-600 bg-slate-800': !btn.turned })}
           onClick={() => btn.callback()}>
           {btn.label}
         </button>)}

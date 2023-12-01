@@ -58,8 +58,9 @@ export const setRandomDots = (): void => {
 }
 
 export const returnBasicColors = () => {
+  const typesToClear: ReactiveLine['proxy']['type'][] = ["pathToEnd", 'pathChecked']
   dotsGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "dot"))
-  linesGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "line"))
+  linesGroup.children.forEach(mesh => typesToClear.includes(mesh.proxy.type) && (mesh.proxy.type = "line"))
 }
 
 
@@ -142,9 +143,13 @@ export const findPathByDijkstraAlgorithm = (): void => {
       return alert("Path doesn't exist")
     }
 
-    dotsLines.forEach(({ dot, line }) => {
-      dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd") // dont chose last one
-      line.proxy.type = "pathToEnd"
+    returnBasicColors()
+
+    dotsLines.forEach(({ dot, line }, index) => {
+      setTimeout(() => {
+        dot.proxy.type === 'dot' && (dot.proxy.type = "pathToEnd") // dont chose last one
+        line.proxy.type = "pathToEnd"
+      }, 500 * index)
     })
   }
 

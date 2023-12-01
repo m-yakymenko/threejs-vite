@@ -4,6 +4,9 @@
 
 body {
   color: white;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 #info {
@@ -19,18 +22,4 @@ body {
   user-select: none;
   pointer-events: none;
   z-index: 1;
-}
-
-#gui {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  padding: 10px;
-}
-
-.gui {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
 }
