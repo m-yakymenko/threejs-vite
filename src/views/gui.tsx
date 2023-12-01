@@ -17,7 +17,7 @@ export const Gui = () => {
     { label: 'Add random dots & lines', callback: createRandomDotsAndLines },
     { label: 'Select start-end dots', callback: selectStartEndDotHelper, turned: isStartEndDotsSelecting },
     { label: 'Set random start-end dots', callback: setRandomDots },
-    { label: 'Find path', callback: findPathByDijkstraAlgorithm },
+    { label: 'Find path by Dijkstra algorithm', callback: findPathByDijkstraAlgorithm },
   ]
 
   return (
