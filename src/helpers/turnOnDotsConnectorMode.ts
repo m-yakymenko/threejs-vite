@@ -1,8 +1,8 @@
 import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { addLineHelper } from './linesHelper'
 import { getCanvasBox } from '../helpers'
 import { useStateStore } from '../store'
 import { ReactiveDot } from "../forms/ReactiveDot"
+import { graphManager } from "../singleton"
 
 const dots = {
   start: null as ReactiveDot | null,
@@ -24,7 +24,7 @@ const dotsConnector = () => {
 
   if (selectedObject) {
     if (dots.start && selectedObject !== dots.start && selectedObject instanceof ReactiveDot) {
-      const { isPathExist } = addLineHelper(dots.start, selectedObject)
+      const { isPathExist } = graphManager.addLine(dots.start, selectedObject)
       if (isPathExist) return;
       setSelected(selectedObject)
     } else if (selectedObject instanceof ReactiveDot) {

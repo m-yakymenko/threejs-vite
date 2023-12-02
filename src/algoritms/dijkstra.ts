@@ -106,7 +106,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
         const previousGraph = pathMap.get(+previousDotId)!
         lineLength += previousGraph.distance === Infinity ? 0 : previousGraph.distance
 
-        console.log({ lineLength, currentGraph, previousGraph })
+        //console.log({ lineLength, currentGraph, previousGraph })
 
         if (currentGraph.distance === Infinity || currentGraph.distance > lineLength) {
           pathMap.set(currentDotId, {
@@ -139,7 +139,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
       .filter(Boolean)
 
 
-    console.log(dotsLines)
+    //console.log(dotsLines)
     if (!dotsLines.length) {
       return alert("Path doesn't exist")
     }

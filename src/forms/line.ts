@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import { COLOR } from '../constans'
-import { dotsGroup, linesGroup } from '../singleton'
+import { dotsGroup, graphManager, linesGroup } from '../singleton'
 import { randomIntFromInterval } from '../utils'
-import { addLineHelper } from '../helpers/linesHelper'
 import { ReactiveLine } from './ReactiveLine'
 
 //const colors = new Float32Array([
@@ -31,6 +30,6 @@ export const createBasicLines = () => {
   for (let index = 0; index < dotsGroup.children.length * 3; index++) {
     const [dotStart, dotEnd] = [dots[randomIntFromInterval(0, dots.length - 1)], dots[randomIntFromInterval(0, dots.length - 1)]]
 
-    addLineHelper(dotStart, dotEnd)
+    graphManager.addLine(dotStart, dotEnd)
   }
 }

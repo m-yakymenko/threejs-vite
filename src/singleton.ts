@@ -5,6 +5,7 @@ import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
 import { GraphType, TypedGroupType } from './types'
 import { ReactiveDot } from './forms/ReactiveDot'
 import { ReactiveLine } from './forms/ReactiveLine'
+import { GraphManager } from './forms/GraphManager'
 
 
 export const scene = new THREE.Scene()
@@ -40,5 +41,6 @@ export const render = () => {
 window.requestAnimationFrame(render)
 
 export const graph: GraphType = {}
+export const graphManager = new GraphManager()
 
 
