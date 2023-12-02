@@ -1,4 +1,4 @@
-import { dotsGroup, graph, linesGroup } from "../singleton";
+import { dotsGroup, linesGroup } from "../singleton";
 import { ReactiveDot } from "./ReactiveDot";
 import { ReactiveLine } from "./ReactiveLine";
 import { createLines } from "./line";
@@ -10,18 +10,18 @@ export type EdgeArrayType = Array<{
 export type GraphType = { [key: number]: EdgeArrayType }
 
 export class GraphManager {
-  //public graph: GraphType
+  public graph: GraphType
 
   constructor() {
-    //graph = {}
+    this.graph = {}
   }
 
   addLine(dotStart: ReactiveDot, dotSEnd: ReactiveDot) {
-    graph[dotStart.id] || (graph[dotStart.id] = [])
-    graph[dotSEnd.id] || (graph[dotSEnd.id] = [])
+    this.graph[dotStart.id] || (this.graph[dotStart.id] = [])
+    this.graph[dotSEnd.id] || (this.graph[dotSEnd.id] = [])
 
-    const startSet = graph[dotStart.id]!
-    const endSet = graph[dotSEnd.id]!
+    const startSet = this.graph[dotStart.id]!
+    const endSet = this.graph[dotSEnd.id]!
 
     const isPathExist = startSet.find(edge => edge.dot === dotSEnd) || endSet.find(edge => edge.dot === dotStart)
 
@@ -37,7 +37,7 @@ export class GraphManager {
   removeAllLinesAndDrawFromScratch() {
     linesGroup.clear()
 
-    for (const [dotId, dots] of Object.entries(graph)) {
+    for (const [dotId, dots] of Object.entries(this.graph)) {
       const dot = dotsGroup.children.find(child => child.id === +dotId)
       if (!dot) return
 
@@ -51,6 +51,6 @@ export class GraphManager {
   }
 
   clear() {
-    Object.keys(graph).forEach(key => delete graph[key as unknown as number])
+    Object.keys(this.graph).forEach(key => delete this.graph[key as unknown as number])
   }
 }

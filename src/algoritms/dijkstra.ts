@@ -1,6 +1,6 @@
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler"
 import { getCanvasBox } from "../helpers"
-import { dotsGroup, graph, linesGroup } from "../singleton"
+import { dotsGroup, graphManager, linesGroup } from "../singleton"
 import { randomIntFromInterval } from "../utils"
 import { useStateStore } from "../store"
 import { ReactiveDot } from "../forms/ReactiveDot"
@@ -81,7 +81,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
   }
   >()
 
-  Object.keys(graph).forEach(key => pathMap.set(+key, {
+  Object.keys(graphManager.graph).forEach(key => pathMap.set(+key, {
     distance: Infinity,
     previousNodeId: [],
   }))
@@ -114,7 +114,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
             previousNodeId: [...previousGraph.previousNodeId, +currentDotId]
           })
 
-          nextQueue[currentDotId] = graph[currentDotId]
+          nextQueue[currentDotId] = graphManager.graph[currentDotId]
         }
       }
     }
@@ -135,7 +135,7 @@ export const findPathByDijkstraAlgorithm = (): void => {
 
     const end = pathMap.get(endDot.id)!
     const dotsLines = [startDot.id, ...end.previousNodeId]
-      .map((nodeId, i, arr) => graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
+      .map((nodeId, i, arr) => graphManager.graph[nodeId].find(({ dot }) => dot.id === arr[i + 1])!)
       .filter(Boolean)
 
 
@@ -154,5 +154,5 @@ export const findPathByDijkstraAlgorithm = (): void => {
     })
   }
 
-  loop({ [startDot.id]: graph[startDot.id] })
+  loop({ [startDot.id]: graphManager.graph[startDot.id] })
 }
