@@ -1,14 +1,13 @@
 //import * as THREE from 'three'
 import { TransformControls } from 'three/addons/controls/TransformControls.js'
 
-import { camera, controls, renderer, scene } from '../singleton'
+import { camera, controls, graphManager, renderer, scene } from '../singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
 import { throttle } from 'throttle-debounce'
-import { removeAllLinesAndDrawFromScratch } from './linesHelper'
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(camera, renderer.domElement)
-  const removeAllLinesAndDrawFromScratchThrottle = throttle(100, removeAllLinesAndDrawFromScratch, { noLeading: false, noTrailing: false })
+  const removeAllLinesAndDrawFromScratchThrottle = throttle(100, graphManager.removeAllLinesAndDrawFromScratch, { noLeading: false, noTrailing: false })
 
   transformControl.addEventListener('dragging-changed', function (event) {
     controls.enabled = !event.value
