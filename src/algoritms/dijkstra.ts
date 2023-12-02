@@ -1,11 +1,11 @@
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler"
 import { getCanvasBox } from "../helpers"
 import { dotsGroup, graph, linesGroup } from "../singleton"
-import { GraphType } from "../types"
 import { randomIntFromInterval } from "../utils"
 import { useStateStore } from "../store"
 import { ReactiveDot } from "../forms/ReactiveDot"
 import { ReactiveLine } from "../forms/ReactiveLine"
+import { GraphType } from "../forms/GraphManager"
 
 const findStartEndDot = () => ({
   startDot: dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),

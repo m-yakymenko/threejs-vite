@@ -2,10 +2,10 @@ import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
-import { GraphType, TypedGroupType } from './types'
+import { TypedGroupType } from './types'
 import { ReactiveDot } from './forms/ReactiveDot'
 import { ReactiveLine } from './forms/ReactiveLine'
-import { GraphManager } from './forms/GraphManager'
+import { GraphManager, GraphType } from './forms/GraphManager'
 
 
 export const scene = new THREE.Scene()

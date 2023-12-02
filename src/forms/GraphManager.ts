@@ -1,7 +1,13 @@
 import { graph } from "../singleton";
-import { GraphType } from "../types";
 import { ReactiveDot } from "./ReactiveDot";
+import { ReactiveLine } from "./ReactiveLine";
 import { createLines } from "./line";
+
+export type EdgeArrayType = Array<{
+  dot: ReactiveDot,
+  line: ReactiveLine,
+}>
+export type GraphType = { [key: number]: EdgeArrayType }
 
 export class GraphManager {
   //public graph: GraphType
