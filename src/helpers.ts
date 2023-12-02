@@ -1,13 +1,12 @@
 import * as THREE from 'three'
 import { createBasicDots } from "./forms/dot"
 import { createBasicLines } from "./forms/line"
-import { camera, dotsGroup, graph, linesGroup } from "./singleton"
-import { clearObject } from "./utils"
+import { camera, dotsGroup, graphManager, linesGroup } from "./singleton"
 
 export const deleteAll = () => {
   linesGroup.clear()
   dotsGroup.clear()
-  clearObject(graph)
+  graphManager.clear()
 }
 
 export const createRandomDotsAndLines = () => {

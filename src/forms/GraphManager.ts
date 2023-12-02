@@ -27,4 +27,8 @@ export class GraphManager {
 
     return { startSet, endSet, isPathExist }
   }
+
+  clear() {
+    Object.keys(graph).forEach(key => delete graph[key as unknown as number])
+  }
 }
