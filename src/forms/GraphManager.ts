@@ -51,6 +51,8 @@ export class GraphManager {
   }
 
   clear() {
-    Object.keys(this.graph).forEach(key => delete this.graph[key as unknown as number])
+    linesGroup.clear()
+    dotsGroup.clear()
+    this.graph = {}
   }
 }
