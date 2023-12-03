@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Mesh, type SphereGeometry, type MeshStandardMaterial } from 'three'
 import { COLOR } from '../constans'
 import { getBaseProxyHelper } from './ReactiveMesh'
 
@@ -24,10 +24,10 @@ const DotsColor: { [key in DotType]: string } = {
   'pathToEnd': COLOR.SUCCESS,
 } as const
 
-export class ReactiveDot extends THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial> {
+export class ReactiveDot extends Mesh<SphereGeometry, MeshStandardMaterial> {
   public proxy: ProxyInterface
 
-  constructor(geometry: THREE.SphereGeometry, material: THREE.MeshStandardMaterial) {
+  constructor(geometry: SphereGeometry, material: MeshStandardMaterial) {
     super(geometry, material)
     this.proxy = getBaseProxyHelper<ProxyInterface>(this, DotsColor, 'dot')
   }

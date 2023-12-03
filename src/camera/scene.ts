@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { AmbientLight, SpotLight, WebGLRenderer, PlaneGeometry, ShadowMaterial, Mesh } from 'three'
 import { camera, renderer, scene, stats } from '../singleton'
 import { getCanvasBox } from '../helpers'
 
@@ -20,8 +20,8 @@ export function createScene() {
 }
 
 export const addLight = () => {
-  scene.add(new THREE.AmbientLight(0xf0f0f0, 3))
-  const light = new THREE.SpotLight(0xffffff, 4.5)
+  scene.add(new AmbientLight(0xf0f0f0, 3))
+  const light = new SpotLight(0xffffff, 4.5)
   light.position.set(0, 1000, -200)
   light.angle = Math.PI * 0.01
   light.decay = 0
@@ -35,7 +35,7 @@ export const addLight = () => {
 }
 
 export const getNewRenderer = () => {
-  const renderer = new THREE.WebGLRenderer({ antialias: true })
+  const renderer = new WebGLRenderer({ antialias: true })
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.shadowMap.enabled = true
@@ -44,11 +44,11 @@ export const getNewRenderer = () => {
 }
 
 export const addPlane = () => {
-  const planeGeometry = new THREE.PlaneGeometry(2000, 2000)
+  const planeGeometry = new PlaneGeometry(2000, 2000)
   planeGeometry.rotateX(- Math.PI / 2)
-  const planeMaterial = new THREE.ShadowMaterial({ color: 'grey', opacity: 0.5 })
+  const planeMaterial = new ShadowMaterial({ color: 'grey', opacity: 0.5 })
 
-  const plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  const plane = new Mesh(planeGeometry, planeMaterial)
   plane.position.y = 0
   plane.receiveShadow = true
   scene.add(plane)

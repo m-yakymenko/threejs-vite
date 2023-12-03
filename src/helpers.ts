@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Vector3 } from 'three'
 import { createBasicDots } from "./forms/dot"
 import { createBasicLines } from "./forms/line"
 import { camera, dotsGroup, linesGroup } from "./singleton"
@@ -11,7 +11,7 @@ export const createRandomDotsAndLines = () => {
 export const getCanvasBox = () => document.getElementById('canvas')!
 
 export const getPositionInFromOfCamera = (dist: number) => {
-  const vector = new THREE.Vector3()
+  const vector = new Vector3()
 
   camera.getWorldDirection(vector)
 

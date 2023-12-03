@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Line, type BufferGeometry, type LineBasicMaterial, } from 'three'
 import { COLOR } from '../constans'
 import { getBaseProxyHelper } from './ReactiveMesh'
 
@@ -19,10 +19,10 @@ const LinesColor: { [key in LineType]: string } = {
   'pathChecked': COLOR.LINE_CHECKED,
 } as const
 
-export class ReactiveLine extends THREE.Line<THREE.BufferGeometry, THREE.LineBasicMaterial> {
+export class ReactiveLine extends Line<BufferGeometry, LineBasicMaterial> {
   public proxy: ProxyInterface
 
-  constructor(geometry: THREE.BufferGeometry, material: THREE.LineBasicMaterial) {
+  constructor(geometry: BufferGeometry, material: LineBasicMaterial) {
     super(geometry, material)
     this.proxy = getBaseProxyHelper<ProxyInterface>(this, LinesColor, 'line')
   }

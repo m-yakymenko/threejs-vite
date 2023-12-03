@@ -1,6 +1,7 @@
+import { type Mesh, type SphereGeometry, type MeshStandardMaterial, type Line, type BufferGeometry, type LineBasicMaterial } from 'three'
 
 interface ProxyInterface {
-  _mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial> | THREE.Line<THREE.BufferGeometry, THREE.LineBasicMaterial>,
+  _mesh: Mesh<SphereGeometry, MeshStandardMaterial> | Line<BufferGeometry, LineBasicMaterial>,
   type: string,
 }
 
