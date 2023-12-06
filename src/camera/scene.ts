@@ -16,6 +16,7 @@ export function createScene() {
     camera.updateProjectionMatrix()
 
     renderer.setSize(width, height)
+    renderer.setPixelRatio(window.devicePixelRatio)
   })
 }
 

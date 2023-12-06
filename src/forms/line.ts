@@ -13,7 +13,7 @@ export const createLines = (points: Vector3[]) => {
   const lineGeometry = new BufferGeometry().setFromPoints(points)
   const lineMaterial = new LineBasicMaterial({
     color: COLOR.LINE,
-    linewidth: 5, // in pixels
+    linewidth: 1, // in pixels
     //vertexColors: true,
   })
   //lineGeometry.setAttribute('color', new BufferAttribute(colors, 3))

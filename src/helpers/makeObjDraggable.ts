@@ -7,7 +7,10 @@ import { throttle } from 'throttle-debounce'
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(camera, renderer.domElement)
-  const removeAllLinesAndDrawFromScratchThrottle = throttle(100, graphManager.removeAllLinesAndDrawFromScratch, { noLeading: false, noTrailing: false })
+  const removeAllLinesAndDrawFromScratchThrottle = throttle(100,
+    graphManager.removeAllLinesAndDrawFromScratch.bind(graphManager),
+    { noLeading: false, noTrailing: false }
+  )
 
   transformControl.addEventListener('dragging-changed', function (event) {
     controls.enabled = !event.value

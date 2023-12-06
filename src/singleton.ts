@@ -35,10 +35,14 @@ console.log('init')
 export const render = () => {
   controls.update()
   renderer.render(scene, camera)
-
-  window.requestAnimationFrame(render)
 }
-window.requestAnimationFrame(render)
+
+const renderLoop = () => {
+  render()
+  window.requestAnimationFrame(renderLoop)
+}
+
+window.requestAnimationFrame(renderLoop)
 
 export const graphManager = new GraphManager()
 
