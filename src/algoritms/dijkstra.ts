@@ -48,10 +48,10 @@ const resetStartEndDot = () => {
   if (endDot) endDot.proxy.type = 'dot'
 }
 
-export const setRandomDots = (): void => {
+export const setRandomStartEndDots = (): void => {
   const startDot = world.dotsGroup.children[randomIntFromInterval(0, world.dotsGroup.children.length - 1)]
   const endDot = world.dotsGroup.children[randomIntFromInterval(0, world.dotsGroup.children.length - 1)]
-  if (startDot === endDot) return setRandomDots()
+  if (startDot === endDot) return setRandomStartEndDots()
   resetStartEndDot()
   startDot.proxy.type = 'startDot'
   endDot.proxy.type = 'endDot'

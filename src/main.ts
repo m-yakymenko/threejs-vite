@@ -5,7 +5,7 @@ import { makeObjDraggable } from './helpers/makeObjDraggable.ts'
 import { hoverHandler } from './helpers/hoverHandler.ts'
 import { addGridHelper } from './camera/gridHelper.ts'
 import { createRandomDotsAndLines } from './helpers.ts'
-import { findPathByDijkstraAlgorithm, setRandomDots } from './algoritms/dijkstra.ts'
+import { findPathByDijkstraAlgorithm, setRandomStartEndDots } from './algoritms/dijkstra.ts'
 
 const init = () => {
   addLight()
@@ -18,7 +18,7 @@ const init = () => {
   createRandomDotsAndLines()
 
   setTimeout(() => {
-    setRandomDots()
+    setRandomStartEndDots()
     findPathByDijkstraAlgorithm()
   }, 1500);
 }

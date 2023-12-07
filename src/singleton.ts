@@ -11,13 +11,13 @@ import { GraphManager } from './forms/GraphManager'
 
 
 export const world = new class World {
-  scene: Scene
-  camera: PerspectiveCamera
-  renderer: WebGLRenderer
-  stats: Stats
-  controls: OrbitControls
-  linesGroup: TypedGroupType<ReactiveLine>
-  dotsGroup: TypedGroupType<ReactiveDot>
+  readonly scene: Scene
+  readonly camera: PerspectiveCamera
+  readonly renderer: WebGLRenderer
+  readonly stats: Stats
+  readonly controls: OrbitControls
+  readonly linesGroup: TypedGroupType<ReactiveLine>
+  readonly dotsGroup: TypedGroupType<ReactiveDot>
 
 
   constructor() {
