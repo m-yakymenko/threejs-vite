@@ -1,6 +1,8 @@
 import { Scene, PerspectiveCamera, WebGLRenderer, Group } from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
+
+import { getCanvasBox } from './helpers'
 import { GROUP_DOTS_NAME, GROUP_LINES_NAME } from './constans'
 import { TypedGroupType } from './types'
 import { ReactiveDot } from './forms/ReactiveDot'
@@ -29,6 +31,7 @@ export const world = new class World {
     this.dotsGroup = this.initGroup<TypedGroupType<ReactiveDot>>(GROUP_DOTS_NAME)
 
     this.renderer.setAnimationLoop(this.renderLoop.bind(this))
+    this.createScene()
     console.log('init')
   }
 
@@ -45,6 +48,25 @@ export const world = new class World {
     group.name = groupName
     this.scene.add(group)
     return group
+  }
+
+  private createScene() {
+    const this_ = this
+
+    this_.renderer.setSize(window.innerWidth, window.innerHeight)
+    queueMicrotask(() => getCanvasBox().appendChild(this_.renderer.domElement))
+    this_.renderer.domElement.appendChild(this_.stats.dom)
+
+    window.addEventListener("resize", () => {
+      const width = window.innerWidth
+      const height = window.innerHeight
+
+      this_.camera.aspect = width / height
+      this_.camera.updateProjectionMatrix()
+
+      this_.renderer.setSize(width, height)
+      this_.renderer.setPixelRatio(window.devicePixelRatio)
+    })
   }
 
   render() {

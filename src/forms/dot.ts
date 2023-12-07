@@ -1,8 +1,7 @@
 import { Vector3, SphereGeometry, MeshStandardMaterial } from 'three'
-import { setupCameraForPoints } from '../camera/cameraHelpers'
+import { getPositionInFromOfCamera, setupCameraForPoints } from '../camera/cameraHelpers'
 import { COLOR } from '../constans'
 import { ReactiveDot } from './ReactiveDot'
-import { getPositionInFromOfCamera } from '../helpers'
 import { world } from '../singleton'
 
 export const createDot = (position?: Vector3) => {

@@ -18,5 +18,16 @@ export const setupCameraForPoints = (points: Vector3[]) => {
 
   world.controls.target.set(center.x, center.y, center.z)
   world.camera.lookAt(center)
+}
 
+
+export const getPositionInFromOfCamera = (dist: number) => {
+  const vector = new Vector3()
+
+  world.camera.getWorldDirection(vector)
+
+  vector.multiplyScalar(dist)
+  vector.add(world.camera.position)
+
+  return vector
 }
