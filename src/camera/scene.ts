@@ -1,6 +1,6 @@
 import { world } from './../singleton';
 import { AmbientLight, SpotLight, WebGLRenderer, PlaneGeometry, ShadowMaterial, Mesh } from 'three'
-import { camera, renderer, stats } from '../singleton'
+import { renderer, stats } from '../singleton'
 import { getCanvasBox } from '../helpers'
 
 
@@ -13,8 +13,8 @@ export function createScene() {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    camera.aspect = width / height
-    camera.updateProjectionMatrix()
+    world.camera.aspect = width / height
+    world.camera.updateProjectionMatrix()
 
     renderer.setSize(width, height)
     renderer.setPixelRatio(window.devicePixelRatio)

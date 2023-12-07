@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, dotsGroup } from '../singleton'
+import { dotsGroup, world } from '../singleton'
 import { throttle } from 'throttle-debounce'
 import { DotType, ReactiveDot } from '../forms/ReactiveDot'
 import { LineType, ReactiveLine } from '../forms/ReactiveLine'
@@ -23,7 +23,7 @@ export const hoverHandler = () => {
   window.addEventListener('pointermove', onPointerMove)
 
   const render = () => {
-    raycaster.setFromCamera(pointer, camera)
+    raycaster.setFromCamera(pointer, world.camera)
     const intersected = raycaster.intersectObjects(dotsGroup.children, false)[0]?.object as ReactiveDot | ReactiveLine | undefined
 
     if (intersected) {

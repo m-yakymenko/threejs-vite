@@ -2,12 +2,12 @@ import { world } from './../singleton';
 //import * as THREE from 'three'
 import { TransformControls } from 'three/addons/controls/TransformControls.js'
 
-import { camera, controls, graphManager, renderer } from '../singleton'
+import { controls, graphManager, renderer } from '../singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
 import { throttle } from 'throttle-debounce'
 
 export const makeObjDraggable = () => {
-  const transformControl = new TransformControls(camera, renderer.domElement)
+  const transformControl = new TransformControls(world.camera, renderer.domElement)
   const removeAllLinesAndDrawFromScratchThrottle = throttle(100,
     graphManager.removeAllLinesAndDrawFromScratch.bind(graphManager),
     { noLeading: false, noTrailing: false }

@@ -10,15 +10,18 @@ import { GraphManager } from './forms/GraphManager'
 
 class World {
   scene: Scene
+  camera: PerspectiveCamera
+
+
   constructor() {
     this.scene = new Scene()
+    this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000)
   }
 }
 
 export const world = new World()
 
 
-export const camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000)
 
 export const renderer = new WebGLRenderer({ antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
@@ -27,7 +30,7 @@ renderer.shadowMap.enabled = true
 
 export const stats = new Stats()
 
-export const controls = new OrbitControls(camera, renderer.domElement)
+export const controls = new OrbitControls(world.camera, renderer.domElement)
 
 export const linesGroup = new Group() as TypedGroupType<ReactiveLine>
 linesGroup.name = GROUP_LINES_NAME
@@ -42,7 +45,7 @@ console.log('init')
 
 export const render = () => {
   controls.update()
-  renderer.render(world.scene, camera)
+  renderer.render(world.scene, world.camera)
 }
 
 const renderLoop = () => {
