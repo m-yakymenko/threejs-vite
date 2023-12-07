@@ -1,7 +1,7 @@
 import { Vector3 } from 'three'
 import { createBasicDots } from "./forms/dot"
 import { createBasicLines } from "./forms/line"
-import { dotsGroup, linesGroup, world } from "./singleton"
+import { world } from "./singleton"
 
 export const createRandomDotsAndLines = () => {
   createBasicDots()
@@ -22,6 +22,6 @@ export const getPositionInFromOfCamera = (dist: number) => {
 }
 
 export const clearSelection = () => {
-  linesGroup.children.forEach(mesh => mesh.proxy.type = 'line')
-  dotsGroup.children.forEach(mesh => mesh.proxy.type = 'dot')
+  world.linesGroup.children.forEach(mesh => mesh.proxy.type = 'line')
+  world.dotsGroup.children.forEach(mesh => mesh.proxy.type = 'dot')
 }

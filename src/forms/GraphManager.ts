@@ -1,4 +1,4 @@
-import { dotsGroup, linesGroup } from "../singleton";
+import { world } from "../singleton";
 import { ReactiveDot } from "./ReactiveDot";
 import { ReactiveLine } from "./ReactiveLine";
 import { createLines } from "./line";
@@ -35,10 +35,10 @@ export class GraphManager {
   }
 
   removeAllLinesAndDrawFromScratch() {
-    linesGroup.clear()
+    world.linesGroup.clear()
 
     for (const [dotId, dots] of Object.entries(this.graph)) {
-      const dot = dotsGroup.children.find(child => child.id === +dotId)
+      const dot = world.dotsGroup.children.find(child => child.id === +dotId)
       if (!dot) return
 
       dots.forEach(endDot => {
@@ -51,8 +51,8 @@ export class GraphManager {
   }
 
   clear() {
-    linesGroup.clear()
-    dotsGroup.clear()
+    world.linesGroup.clear()
+    world.dotsGroup.clear()
     this.graph = {}
   }
 }

@@ -1,6 +1,6 @@
 import { HOVERED_INTERSECTED } from "../helpers/hoverHandler"
 import { getCanvasBox } from "../helpers"
-import { dotsGroup, graphManager, linesGroup } from "../singleton"
+import { graphManager, world } from "../singleton"
 import { randomIntFromInterval } from "../utils"
 import { useStateStore } from "../store"
 import { ReactiveDot } from "../forms/ReactiveDot"
@@ -8,8 +8,8 @@ import { ReactiveLine } from "../forms/ReactiveLine"
 import { GraphType } from "../forms/GraphManager"
 
 const findStartEndDot = () => ({
-  startDot: dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),
-  endDot: dotsGroup.children.find(dot => dot.proxy.type === 'endDot')
+  startDot: world.dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),
+  endDot: world.dotsGroup.children.find(dot => dot.proxy.type === 'endDot')
 })
 
 const selectStartEndDot = () => {
@@ -49,8 +49,8 @@ const resetStartEndDot = () => {
 }
 
 export const setRandomDots = (): void => {
-  const startDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
-  const endDot = dotsGroup.children[randomIntFromInterval(0, dotsGroup.children.length - 1)]
+  const startDot = world.dotsGroup.children[randomIntFromInterval(0, world.dotsGroup.children.length - 1)]
+  const endDot = world.dotsGroup.children[randomIntFromInterval(0, world.dotsGroup.children.length - 1)]
   if (startDot === endDot) return setRandomDots()
   resetStartEndDot()
   startDot.proxy.type = 'startDot'
@@ -59,8 +59,8 @@ export const setRandomDots = (): void => {
 
 export const returnBasicColors = () => {
   const typesToClear: ReactiveLine['proxy']['type'][] = ["pathToEnd", 'pathChecked']
-  dotsGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "dot"))
-  linesGroup.children.forEach(mesh => typesToClear.includes(mesh.proxy.type) && (mesh.proxy.type = "line"))
+  world.dotsGroup.children.forEach(mesh => mesh.proxy.type === "pathToEnd" && (mesh.proxy.type = "dot"))
+  world.linesGroup.children.forEach(mesh => typesToClear.includes(mesh.proxy.type) && (mesh.proxy.type = "line"))
 }
 
 

@@ -1,13 +1,12 @@
 import { world } from './../singleton';
 import { AmbientLight, SpotLight, WebGLRenderer, PlaneGeometry, ShadowMaterial, Mesh } from 'three'
-import { renderer, stats } from '../singleton'
 import { getCanvasBox } from '../helpers'
 
 
 export function createScene() {
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  getCanvasBox().appendChild(renderer.domElement)
-  renderer.domElement.appendChild(stats.dom)
+  world.renderer.setSize(window.innerWidth, window.innerHeight)
+  getCanvasBox().appendChild(world.renderer.domElement)
+  world.renderer.domElement.appendChild(world.stats.dom)
 
   window.addEventListener("resize", () => {
     const width = window.innerWidth
@@ -16,8 +15,8 @@ export function createScene() {
     world.camera.aspect = width / height
     world.camera.updateProjectionMatrix()
 
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    world.renderer.setSize(width, height)
+    world.renderer.setPixelRatio(window.devicePixelRatio)
   })
 }
 

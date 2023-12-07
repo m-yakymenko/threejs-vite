@@ -1,9 +1,9 @@
 import { Vector3, SphereGeometry, MeshStandardMaterial } from 'three'
-import { dotsGroup } from '../singleton'
 import { setupCameraForPoints } from '../camera/cameraHelpers'
 import { COLOR } from '../constans'
 import { ReactiveDot } from './ReactiveDot'
 import { getPositionInFromOfCamera } from '../helpers'
+import { world } from '../singleton'
 
 export const createDot = (position?: Vector3) => {
   const dotGeometry = new SphereGeometry(0.1)
@@ -12,7 +12,7 @@ export const createDot = (position?: Vector3) => {
   sphere.position.copy(position || getPositionInFromOfCamera(5))
   sphere.castShadow = true
   sphere.receiveShadow = true
-  dotsGroup.add(sphere)
+  world.dotsGroup.add(sphere)
   return sphere
 }
 
