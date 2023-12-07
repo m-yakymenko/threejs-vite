@@ -1,7 +1,8 @@
+import { world } from './../singleton';
 //import * as THREE from 'three'
 import { TransformControls } from 'three/addons/controls/TransformControls.js'
 
-import { camera, controls, graphManager, renderer, scene } from '../singleton'
+import { camera, controls, graphManager, renderer } from '../singleton'
 import { HOVERED_INTERSECTED } from './hoverHandler'
 import { throttle } from 'throttle-debounce'
 
@@ -19,7 +20,7 @@ export const makeObjDraggable = () => {
 
   const detach = () => {
     transformControl.detach()
-    scene.remove(transformControl)
+    world.scene.remove(transformControl)
   }
 
   const dblclickHandler = () => {
@@ -29,7 +30,7 @@ export const makeObjDraggable = () => {
       detach()
     } else {
       transformControl.attach(HOVERED_INTERSECTED.object)
-      scene.add(transformControl)
+      world.scene.add(transformControl)
     }
   }
 

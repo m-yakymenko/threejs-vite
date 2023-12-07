@@ -1,5 +1,6 @@
+import { world } from './../singleton';
 import { AmbientLight, SpotLight, WebGLRenderer, PlaneGeometry, ShadowMaterial, Mesh } from 'three'
-import { camera, renderer, scene, stats } from '../singleton'
+import { camera, renderer, stats } from '../singleton'
 import { getCanvasBox } from '../helpers'
 
 
@@ -21,7 +22,7 @@ export function createScene() {
 }
 
 export const addLight = () => {
-  scene.add(new AmbientLight(0xf0f0f0, 3))
+  world.scene.add(new AmbientLight(0xf0f0f0, 3))
   const light = new SpotLight(0xffffff, 4.5)
   light.position.set(0, 1000, -200)
   light.angle = Math.PI * 0.01
@@ -32,7 +33,7 @@ export const addLight = () => {
   light.shadow.bias = - 0.000222
   light.shadow.mapSize.width = 10000
   light.shadow.mapSize.height = 10000
-  scene.add(light)
+  world.scene.add(light)
 }
 
 export const getNewRenderer = () => {
@@ -52,5 +53,5 @@ export const addPlane = () => {
   const plane = new Mesh(planeGeometry, planeMaterial)
   plane.position.y = 0
   plane.receiveShadow = true
-  scene.add(plane)
+  world.scene.add(plane)
 }

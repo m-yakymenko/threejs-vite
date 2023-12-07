@@ -8,7 +8,15 @@ import { ReactiveLine } from './forms/ReactiveLine'
 import { GraphManager } from './forms/GraphManager'
 
 
-export const scene = new Scene()
+class World {
+  scene: Scene
+  constructor() {
+    this.scene = new Scene()
+  }
+}
+
+export const world = new World()
+
 
 export const camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000)
 
@@ -23,18 +31,18 @@ export const controls = new OrbitControls(camera, renderer.domElement)
 
 export const linesGroup = new Group() as TypedGroupType<ReactiveLine>
 linesGroup.name = GROUP_LINES_NAME
-scene.add(linesGroup)
+world.scene.add(linesGroup)
 
 
 export const dotsGroup = new Group() as TypedGroupType<ReactiveDot>
 dotsGroup.name = GROUP_DOTS_NAME
-scene.add(dotsGroup)
+world.scene.add(dotsGroup)
 
 console.log('init')
 
 export const render = () => {
   controls.update()
-  renderer.render(scene, camera)
+  renderer.render(world.scene, camera)
 }
 
 const renderLoop = () => {
