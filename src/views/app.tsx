@@ -1,4 +1,4 @@
-import { Gui } from "./gui"
+import { Gui } from "src/views/gui"
 
 export const App = () => {
   return (

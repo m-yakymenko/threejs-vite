@@ -1,6 +1,6 @@
-import { createBasicDots } from "./forms/dot"
-import { createBasicLines } from "./forms/line"
-import { world } from "./singleton"
+import { createBasicDots } from "src/forms/dot"
+import { createBasicLines } from "src/forms/line"
+import { world } from "src/singleton"
 
 export const createRandomDotsAndLines = () => {
   createBasicDots()

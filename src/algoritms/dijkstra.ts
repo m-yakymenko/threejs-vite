@@ -1,11 +1,11 @@
-import { HOVERED_INTERSECTED } from "../helpers/hoverHandler"
-import { getCanvasBox } from "../helpers"
-import { graphManager, world } from "../singleton"
-import { randomIntFromInterval } from "../utils"
-import { useStateStore } from "../store"
-import { ReactiveDot } from "../forms/ReactiveDot"
-import { ReactiveLine } from "../forms/ReactiveLine"
-import { GraphType } from "../classes/GraphManager"
+import { HOVERED_INTERSECTED } from "src/helpers/hoverHandler"
+import { getCanvasBox } from "src/helpers"
+import { graphManager, world } from "src/singleton"
+import { randomIntFromInterval } from "src/utils"
+import { useStateStore } from "src/store"
+import { ReactiveDot } from "src/forms/ReactiveDot"
+import { ReactiveLine } from "src/forms/ReactiveLine"
+import { GraphType } from "src/classes/GraphManager"
 
 const findStartEndDot = () => ({
   startDot: world.dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),

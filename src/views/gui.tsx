@@ -1,11 +1,11 @@
 
-import { createRandomDotsAndLines, clearSelection, } from '../helpers'
-import { createDot } from '../forms/dot'
-import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomStartEndDots } from '../algoritms/dijkstra'
+import { createRandomDotsAndLines, clearSelection, } from 'src/helpers'
+import { createDot } from 'src/forms/dot'
+import { findPathByDijkstraAlgorithm, selectStartEndDotHelper, setRandomStartEndDots } from 'src/algoritms/dijkstra'
 import classNames from 'classnames'
-import { useStateStore } from '../store'
-import { turnOnDotsConnector } from '../helpers/turnOnDotsConnectorMode'
-import { graphManager } from '../singleton'
+import { useStateStore } from 'src/store'
+import { turnOnDotsConnector } from 'src/helpers/turnOnDotsConnectorMode'
+import { graphManager } from 'src/singleton'
 
 export const Gui = () => {
   const isTurnOnDotsConnectorMode = useStateStore((state) => state.isTurnOnDotsConnectorMode)

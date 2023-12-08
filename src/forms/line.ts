@@ -1,8 +1,8 @@
 import { type Vector3, BufferGeometry, LineBasicMaterial } from 'three'
-import { COLOR } from '../constans'
-import { randomIntFromInterval } from '../utils'
-import { ReactiveLine } from './ReactiveLine'
-import { graphManager, world } from '../singleton'
+import { COLOR } from 'src/constans'
+import { randomIntFromInterval } from 'src/utils'
+import { ReactiveLine } from 'src/forms/ReactiveLine'
+import { graphManager, world } from 'src/singleton'
 
 //const colors = new Float32Array([
 //  1.0, 1.0, 0.0,  // yellow (normalized)

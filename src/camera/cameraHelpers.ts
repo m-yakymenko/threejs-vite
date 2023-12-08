@@ -1,4 +1,4 @@
-import { world } from './../singleton';
+import { world } from 'src/singleton';
 import { Box3, Vector3, MathUtils } from 'three'
 
 export const setupCameraForPoints = (points: Vector3[]) => {

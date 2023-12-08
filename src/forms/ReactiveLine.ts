@@ -1,5 +1,5 @@
 import { Line, type BufferGeometry, type LineBasicMaterial, } from 'three'
-import { COLOR } from '../constans'
+import { COLOR } from 'src/constans'
 import { getBaseProxyHelper } from './ReactiveMesh'
 
 export type LineType =

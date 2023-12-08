@@ -1,9 +1,8 @@
-import { graphManager, world } from './../singleton';
-//import * as THREE from 'three'
-import { TransformControls } from 'three/addons/controls/TransformControls.js'
-
-import { HOVERED_INTERSECTED } from './hoverHandler'
 import { throttle } from 'throttle-debounce'
+import { TransformControls } from 'three/addons/controls/TransformControls.js'
+import { graphManager, world } from 'src/singleton';
+
+import { HOVERED_INTERSECTED } from 'src/helpers/hoverHandler'
 
 export const makeObjDraggable = () => {
   const transformControl = new TransformControls(world.camera, world.renderer.domElement)

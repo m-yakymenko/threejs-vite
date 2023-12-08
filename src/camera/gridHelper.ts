@@ -1,4 +1,4 @@
-import { world } from './../singleton';
+import { world } from 'src/singleton';
 import { GridHelper, AxesHelper } from 'three'
 
 export const addGridHelper = () => {

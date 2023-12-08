@@ -1,8 +1,8 @@
-import { HOVERED_INTERSECTED } from "./hoverHandler"
-import { getCanvasBox } from '../helpers'
-import { useStateStore } from '../store'
-import { ReactiveDot } from "../forms/ReactiveDot"
-import { graphManager } from "../singleton"
+import { HOVERED_INTERSECTED } from "src/helpers/hoverHandler"
+import { getCanvasBox } from 'src/helpers'
+import { useStateStore } from 'src/store'
+import { ReactiveDot } from "src/forms/ReactiveDot"
+import { graphManager } from "src/singleton"
 
 const dots = {
   start: null as ReactiveDot | null,

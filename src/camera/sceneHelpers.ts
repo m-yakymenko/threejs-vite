@@ -1,4 +1,4 @@
-import { world } from '../singleton';
+import { world } from 'src/singleton';
 import { AmbientLight, SpotLight, PlaneGeometry, ShadowMaterial, Mesh } from 'three'
 
 

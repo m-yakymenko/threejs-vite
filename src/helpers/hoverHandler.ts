@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import { world } from '../singleton'
+import { world } from 'src/singleton'
 import { throttle } from 'throttle-debounce'
-import { DotType, ReactiveDot } from '../forms/ReactiveDot'
-import { LineType, ReactiveLine } from '../forms/ReactiveLine'
+import { DotType, ReactiveDot } from 'src/forms/ReactiveDot'
+import { LineType, ReactiveLine } from 'src/forms/ReactiveLine'
 
 export const HOVERED_INTERSECTED = {
   object: null as ReactiveDot | ReactiveLine | null,
