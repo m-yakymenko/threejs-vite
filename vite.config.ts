@@ -5,6 +5,11 @@ export default defineConfig(({ command }) => {
   const config = {
     plugins: [preact()],
     base: '/',
+    resolve: {
+      alias: {
+        src: "/src",
+      },
+    },
   }
 
   if (command !== 'serve') {

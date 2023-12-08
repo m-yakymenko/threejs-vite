@@ -5,7 +5,7 @@ import { randomIntFromInterval } from "../utils"
 import { useStateStore } from "../store"
 import { ReactiveDot } from "../forms/ReactiveDot"
 import { ReactiveLine } from "../forms/ReactiveLine"
-import { GraphType } from "../forms/GraphManager"
+import { GraphType } from "../classes/GraphManager"
 
 const findStartEndDot = () => ({
   startDot: world.dotsGroup.children.find(dot => dot.proxy.type === 'startDot'),

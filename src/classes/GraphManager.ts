@@ -1,7 +1,7 @@
 import { world } from "../singleton";
-import { ReactiveDot } from "./ReactiveDot";
-import { ReactiveLine } from "./ReactiveLine";
-import { createLines } from "./line";
+import { ReactiveDot } from "../forms/ReactiveDot";
+import { ReactiveLine } from "../forms/ReactiveLine";
+import { createLines } from "../forms/line";
 
 export type EdgeArrayType = Array<{
   dot: ReactiveDot,
